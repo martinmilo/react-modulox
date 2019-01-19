@@ -1,0 +1,16 @@
+{
+  "name": "@javascriptfox/modulox",
+  "version": "1.0.0",
+  "description": "Core building blocks that helps you build your UI in React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "modulox",
+    "ui",
+    "components"
+  ],
+  "author": "Martin Milo <milomartin.za@gmail.com> (https://martinmilo.com)",
+  "license": "MIT"
+}
