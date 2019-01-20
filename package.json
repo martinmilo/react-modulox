@@ -1,6 +1,6 @@
 {
   "name": "@javascriptfox/modulox",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Core building blocks that helps you build your UI in React.",
   "main": "lib/bundle.js",
   "scripts": {
