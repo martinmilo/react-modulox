@@ -11,6 +11,10 @@
     "prepublishOnly": "npm test",
     "postversion": "git push && git push --tags"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavascriptFox/modulox.git"
+  },
   "keywords": [
     "modulox",
     "ui",
@@ -49,5 +53,8 @@
     "setupFiles": [
       "./jestsetup.js"
     ]
+  },
+  "dependencies": {
+    "david": "^11.0.0"
   }
 }

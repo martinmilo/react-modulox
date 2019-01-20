@@ -5,7 +5,3 @@ install:
 script:
   - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
   - codecov
-deploy:
-	provider: npm
-	email: "milomartin.za@gmail.com"
-	api_key: "138dcccf-6dc6-46be-a913-946dae650d66"
