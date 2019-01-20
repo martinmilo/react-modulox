@@ -54,5 +54,6 @@
     "setupFiles": [
       "./jestsetup.js"
     ]
-  }
+  },
+  "dependencies": {}
 }
