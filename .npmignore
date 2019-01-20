@@ -1,0 +1,8 @@
+/node_modules/
+/src/
+.babelrc
+javascriptfox-modulox-1.0.0.tgz
+.travis.yml
+.codecov.yml
+.gitignore
+.env

@@ -1,0 +1,6 @@
+/node_modules/
+/lib/
+javascriptfox-modulox-1.0.0.tgz
+.travis.yml
+.codecov.yml
+.env
