@@ -26,7 +26,7 @@ describe('Test propertyGenerator', () => {
 	})
 })
 
-describe('Test propertyGenerator multiple media queries', () => {
+describe('Test propertyGenerator that calls breakpointStyle', () => {
 	const expectedCSS = breakpoint => {
 		if (breakpoint.size === 'xs') return 'display: flex;'
 		if (breakpoint.size === 'xt') return 'display: none;'

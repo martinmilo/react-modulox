@@ -6,6 +6,6 @@ cache:
 install:
   - npm install -g codecov
 script:
-  - jest && codecov
+	- jest && codecov
 after_success:
 	- bash <(curl -s https://codecov.io/bash)
