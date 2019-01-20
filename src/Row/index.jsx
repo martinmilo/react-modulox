@@ -5,7 +5,7 @@ import { injectStyles } from './styles'
 
 const config = require('../../config')
 
-const Box = ({ children, element, events, ...props }) => {
+const Row = ({ children, element, events, ...props }) => {
 	const Element = styled[element]`
 		${injectStyles(props)}
 		::after {${props.after}}
@@ -21,7 +21,7 @@ const Box = ({ children, element, events, ...props }) => {
   )
 }
 
-Box.propTypes = {
+Row.propTypes = {
 	element: propTypes.string,
 	events: propTypes.object,
 	display: propTypes.string,
@@ -35,7 +35,6 @@ Box.propTypes = {
 	maxHeight: propTypes.string,
 	justify: propTypes.string,
 	align: propTypes.string,
-	direction: propTypes.string,
 	background: propTypes.string,
 	className: propTypes.string,
 	style: propTypes.string,
@@ -44,7 +43,7 @@ Box.propTypes = {
 	after: propTypes.string,
 }
 
-Box.defaultProps = {
+Row.defaultProps = {
 	element: 'div',
 	display: 'flex',
 	events: {},
@@ -56,9 +55,8 @@ Box.defaultProps = {
 	height: 'auto',
 	maxWidth: 'initial',
 	maxHeight: 'initial',
-	justify: 'initial',
-	align: 'initial',
-	direction: 'column',
+	justify: 'space-between',
+	align: 'center',
 	background: 'transparent',
 	className: '',
 	spacing: '',
@@ -69,4 +67,4 @@ Box.defaultProps = {
 	[config.breakpoints[0].size]: 100,
 }
 
-export default Box
+export default Row

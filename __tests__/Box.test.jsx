@@ -11,6 +11,7 @@ describe('Box with different render methods', () => {
 			.toJSON()
 		expect(tree).toHaveStyleRule('margin', 'initial')
 		expect(tree).toHaveStyleRule('flex-basis', '100%')
+		expect(tree).toHaveStyleRule('flex-direction', 'column')
 	})
 
 	it('renders the Box with changed style rules', () => {
