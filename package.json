@@ -54,8 +54,5 @@
     "setupFiles": [
       "./jestsetup.js"
     ]
-  },
-  "dependencies": {
-    "david": "^11.0.0"
   }
 }
