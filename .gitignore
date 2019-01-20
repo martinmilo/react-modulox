@@ -1,6 +1,8 @@
 /node_modules/
+/coverage/
 /lib/
 javascriptfox-modulox-1.0.0.tgz
+package-lock.json
 .travis.yml
 .codecov.yml
 .env

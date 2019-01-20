@@ -1,7 +1,9 @@
 /node_modules/
+/coverage/
 /src/
 .babelrc
 javascriptfox-modulox-1.0.0.tgz
+package-lock.json
 .travis.yml
 .codecov.yml
 .gitignore
