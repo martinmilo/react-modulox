@@ -1,7 +1,7 @@
 language: node_js
 node_js: "9"
 before_install: npm i -g npm@6.5.0
-install: npm install -g codecov
+install: npm i && npm install -g codecov
 script:
 - jest && codecov
 cache:
