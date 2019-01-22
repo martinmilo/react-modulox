@@ -1,7 +1,7 @@
 language: node_js
 node_js: "9"
 before_install: npm i -g npm@6.5.0
-install: npm i && npm install babel-loader@8.0.0-beta.0 && npm install -g codecov
+install: npm i && npm install -g babel-cli && npm install -g codecov
 script:
 - jest && codecov
 cache:
