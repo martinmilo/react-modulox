@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1548189229281" clover="3.2.0">
-  <project timestamp="1548189229281" name="All files">
+<coverage generated="1548191383269" clover="3.2.0">
+  <project timestamp="1548191383269" name="All files">
     <metrics statements="70" coveredstatements="69" conditionals="37" coveredconditionals="34" methods="20" coveredmethods="20" elements="127" coveredelements="123" complexity="0" loc="70" ncloc="70" packages="5" files="9" classes="9">
       <package name="modulox">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
