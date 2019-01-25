@@ -4,8 +4,8 @@ node_js:
 cache:
   directories:
     - node_modules
-before_install:
-  - npm i -g npm@6.5.0
+before_script:
+  - npm install
 install:
   - npm i && npm install -g babel-cli && npm install -g codecov
 script:
