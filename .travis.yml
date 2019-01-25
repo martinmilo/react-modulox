@@ -4,12 +4,9 @@ node_js:
 cache:
   directories:
     - node_modules
-before_script:
-  - npm install
-install:
-  - npm i && npm install -g babel-cli && npm install -g codecov
 script:
-  - jest && codecov
+	- jest && codecov
+  - npm run build
 notifications:
   slack:
     secure: HQBjGtJpfyMdzG1nE80OJr4+5Vjd0lXjRTx2hc6Nv9w/EKCAhUFWS4FPjEctotl+WIz3Iw+Kpe9qG1KWRN+4LPnAR7pyVKO12YeMte1Lw997/av4ZbdxYpnJv+B7M9AlaJPvuJ/DUHAgKkvBfMc8Ekl7oeUTb5iWDXpJSNbIGBsElZApux8swnHw5BF6I0w1nZ1tf8jQU5yruUkHIf9z83EN5HHaGh44F6IaS+3zbTpqlvR9nqmbsF2JxypCm5pBRP3w5lZVwSlwZhdzGD0wBID5NqPoOC5MSpnrGopg7Xk/fC9zdLJhnC0vTSfEdDBpONOIPL1C/IobRsv01Sq6KCmGLiI1VoPF94Scyw3q+p+B5WSDdAWLN82Djny1eayMJBtPxlp334RwgQ1vgIDZtpc8SjbVYCSzlQPel8ofpKEL74VplJNJKzCk+QcI218oU07ugezbEXQ4rngz4so7DFpM8J0ASvJKSwpTWYxAMiOuxR6hKPWKNFNWS/G/GhWpZiIjY17VKN8uD1EELC7itxC36ifA9C3glmmi2Am7WEFyFYZZKlc8o5qs2ZYZavWRZnOkuS7G79CTR24pIZMe5THDQMlNWR22bi6XwTLY9K9iRHB5rmvHLagp45W8iBqGvpp8sXXZ1exsN5B58touF0x673WzE2ERwgdKuFMxtGw=
