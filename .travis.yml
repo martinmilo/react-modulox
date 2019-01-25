@@ -5,7 +5,7 @@ cache:
   directories:
     - node_modules
 script:
-	- jest && codecov
+  - jest && codecov
   - npm run build
 notifications:
   slack:
