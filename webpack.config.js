@@ -16,7 +16,7 @@ module.exports = {
 				test: /\.jsx$/,
 				loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
-        exclude: /(node_modules|bower_components|build)/,
+        exclude: /(node_modules|bower_components)/,
       }
     ]
 	},

@@ -39,7 +39,7 @@ describe('List with different render methods', () => {
 		const Item = props => <li>{props.item}</li>
 		const component = shallow((
 			<List items={[1,2,3]}>
-				<Item />
+				<Item key={Math.random()} />
 			</List>
 		))
 		expect(component.prop('children').length).toBe(3)

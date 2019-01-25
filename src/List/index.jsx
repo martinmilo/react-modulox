@@ -15,18 +15,11 @@ const List = ({ children, element, items, events, ...props }) => {
 		${props.style}
 	`
 	const renderChildren = (item, index) => React.isValidElement(children)
-		? React.Children.map(children, function(child) {
-				const listLength = items.length
-				const isLastItem = index === listLength - 1
-				const propsToReactChildElement = typeof item === 'object'
-					? { ...item }
-					: { item }
-				return React.cloneElement(child, {
-					...propsToReactChildElement,
-					listLength,
-					isLastItem,
-					index,
-				})
+		? React.cloneElement(children, {
+				listLength: item.length,
+				isLastItem: index === item.length - 1,
+				index,
+				item,
 			})
 		: item
 
