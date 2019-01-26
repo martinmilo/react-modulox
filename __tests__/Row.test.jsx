@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import Row from '../src/Row'
+import Row from '../src/components/Row'
 
 describe('Row with different render methods', () => {
 	it('renders the Row with initial style rules', () => {

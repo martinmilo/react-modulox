@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import Box from '../src/Box'
+import Box from '../src/components/Box'
 
 describe('Box with different render methods', () => {
 	it('renders the Box with initial style rules', () => {
@@ -32,6 +32,8 @@ describe('Box with different render methods', () => {
 				<div className="test">Test</div>
 			</Box>
 		))
-		expect(component.contains(<div className="test">Test</div>)).toBe(true)
+		expect(component.contains(
+			<div className="test">Test</div>
+		)).toBe(true)
 	})
 })

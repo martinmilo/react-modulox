@@ -1,6 +1,6 @@
-import { propertiesIterator } from '../utils'
+import { propertiesIterator } from '../../utils/'
 
-const { breakpoints } = require('../../config')
+const { breakpoints } = require('../../../config')
 
 export const injectStyles = props => {
 	const styles = breakpoint => `

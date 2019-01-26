@@ -1,9 +1,9 @@
 import React from 'react'
-import propTypes from 'prop-types'
 import styled from 'styled-components'
 import { injectStyles } from './styles'
+import { commonTypes } from '../../types'
 
-const config = require('../../config')
+const config = require('../../../config')
 
 const Box = ({ children, element, events, ...props }) => {
 	const Element = styled[element]`
@@ -22,26 +22,7 @@ const Box = ({ children, element, events, ...props }) => {
 }
 
 Box.propTypes = {
-	element: propTypes.string,
-	events: propTypes.object,
-	display: propTypes.string,
-	wrap: propTypes.string,
-	position: propTypes.string,
-	spacing: propTypes.string,
-	padding: propTypes.string,
-	width: propTypes.string,
-	height: propTypes.string,
-	maxWidth: propTypes.string,
-	maxHeight: propTypes.string,
-	justify: propTypes.string,
-	align: propTypes.string,
-	direction: propTypes.string,
-	background: propTypes.string,
-	className: propTypes.string,
-	style: propTypes.string,
-	hover: propTypes.string,
-	before: propTypes.string,
-	after: propTypes.string,
+	...commonTypes
 }
 
 Box.defaultProps = {
@@ -60,6 +41,7 @@ Box.defaultProps = {
 	align: 'initial',
 	direction: 'column',
 	background: 'transparent',
+	transition: '',
 	className: '',
 	spacing: '',
 	style: '',
