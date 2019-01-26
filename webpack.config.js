@@ -20,6 +20,9 @@ module.exports = {
       }
     ]
 	},
+	node: {
+		fs: "empty"
+ 	},
 	externals: {
     'react': 'commonjs react'
 	}
