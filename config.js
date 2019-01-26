@@ -1,7 +1,12 @@
-const fs = require('fs-extra')
+const fse = require('fs-extra')
 
-module.exports = fs.existsSync('./modulox.config.json')
-	? fs.readFileSync('./modulox.config.json', 'utf8')
+const dir = __dirname
+const getDirectory = path => dir && dir.includes(path)
+	? dir.slice(0, dir.indexOf(path))
+	: dir
+
+module.exports = fse.existsSync(`${getDirectory('/node_modules')}/modulox.config.json`)
+	? fse.readFileSync(`${getDirectory('/node_modules')}/modulox.config.json`, 'utf8')
 	: {
 		breakpoints: [
 			{ size: 'xs', prefix: 's:', minWidth: 0 },
