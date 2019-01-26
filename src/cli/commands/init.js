@@ -3,8 +3,8 @@ const fs = require('fs-extra')
 
 // Boilerplate files
 const paths = {
-	defaultFile: `./default.config.js`,
-	generatedFile: `./modulox.config.js`
+	defaultFile: `./default.config.json`,
+	generatedFile: `./modulox.config.json`
 }
 
 // Exit the command line and show the message why so
