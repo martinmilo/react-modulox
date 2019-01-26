@@ -1,4 +1,4 @@
-import { propertyGenerator, propertiesIterator } from '../src/utils'
+import { propertyGenerator, propertiesIterator } from '../src/utils/'
 
 const { breakpoints } = require('../config')
 

@@ -1,6 +1,6 @@
-import Box from './Box'
-import Row from './Row'
-import List from './List'
+import Box from './components/Box'
+import Row from './components/Row'
+import List from './components/List'
 
 export {
 	Box,

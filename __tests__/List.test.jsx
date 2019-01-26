@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import List from '../src/List'
+import List from '../src/components/List'
 
 describe('List with different render methods', () => {
 	it('renders the List with initial style rules', () => {

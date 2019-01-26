@@ -1,7 +1,5 @@
-/node_modules/*
-/coverage/*
-/lib/*
-javascriptfox-modulox-1.0.0.tgz
-package-lock.json
+/node_modules
+/coverage
+/lib
 .codecov.yml
 .env

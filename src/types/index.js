@@ -1,0 +1,25 @@
+import { string, object } from 'prop-types'
+
+export const commonTypes = {
+	element: string,
+	events: object,
+	display: string,
+	wrap: string,
+	position: string,
+	spacing: string,
+	padding: string,
+	width: string,
+	height: string,
+	maxWidth: string,
+	maxHeight: string,
+	justify: string,
+	align: string,
+	direction: string,
+	background: string,
+	transition: string,
+	className: string,
+	style: string,
+	hover: string,
+	before: string,
+	after: string,
+}

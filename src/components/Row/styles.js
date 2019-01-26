@@ -1,6 +1,6 @@
-import { propertiesIterator } from '../utils'
+import { propertiesIterator } from '../../utils/'
 
-const { breakpoints } = require('../../config')
+const { breakpoints } = require('../../../config')
 
 export const injectStyles = props => {
 	const styles = breakpoint => `
@@ -15,7 +15,6 @@ export const injectStyles = props => {
 			['max-height', props.maxHeight, true, `${props[breakpoint.size]}%`],
 			['background', props.background],
 			['margin', props.margin],
-			['flex-direction', props.direction],
 			['flex-wrap', props.wrap],
 			['justify-content', props.justify],
 			['align-items', props.align],
@@ -33,4 +32,3 @@ export const injectStyles = props => {
 		`;
 	}).join('')
 }
-
