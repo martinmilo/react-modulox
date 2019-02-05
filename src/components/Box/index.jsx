@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { injectStyles } from './styles'
 import { commonTypes } from '../../types'
-
-const config = require('../../../config')
+import theme from '../../theme/'
 
 const Box = ({ children, element, events, ...props }) => {
 	const Element = styled[element]`
@@ -11,7 +10,10 @@ const Box = ({ children, element, events, ...props }) => {
 		::after {${props.after}}
 		::before {${props.before}}
 		:hover {${props.hover}}
-		& > * {${props.spacing}}
+		& > * {
+			margin: ${props.spacing};
+			${props.childs}
+		}
 		${props.style}
 	`
   return (
@@ -41,14 +43,16 @@ Box.defaultProps = {
 	align: 'initial',
 	direction: 'column',
 	background: 'transparent',
-	transition: '',
-	className: '',
-	spacing: '',
-	style: '',
-	hover: '',
-	before: '',
-	after: '',
-	[config.breakpoints[0].size]: 100,
+	transition: ``,
+	className: ``,
+	spacing: ``,
+	style: ``,
+	hover: ``,
+	before: ``,
+	after: ``,
+	childs: ``,
+	xx: 100,
+	theme,
 }
 
 export default Box

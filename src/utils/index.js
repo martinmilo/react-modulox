@@ -1,7 +1,3 @@
-const config = require('../../config')
-
-const { splitter, breakpoints } = config
-
 /* ----------------------------------------------------------
 	Function: propertiesIterator(@properties, @breakpoints)
 		@properties: one item is equal to one line of css code
@@ -10,7 +6,7 @@ const { splitter, breakpoints } = config
 		Iterates over properties and generates the css style code
 		as string for each item of the properties.
 */
-export const propertiesIterator = (properties, breakpoint) => {
+export const propertiesIterator = (properties, breakpoint, theme) => {
 	// We should map all the properties and generate style strings
 	return properties.map(p =>
 		propertyGenerator(
@@ -20,6 +16,7 @@ export const propertiesIterator = (properties, breakpoint) => {
 			p[3], // Unit of the property
 			p[4], // Default value
 			breakpoint, // Breakpoint object
+			theme, // Theme provided by user or default one
 		)
 	).join('')
 }
@@ -41,17 +38,18 @@ export const propertyGenerator = (
 	media = true,
 	unit = '',
 	defaultValue = '',
-	breakpoint
+	breakpoint,
+	theme
 ) => {
 	// Check if we should consider media queries
 	if (media) {
 		// If value contains splitter, then call the breakpoints style function
 		// Value can't be number, otherwise it's just a value for single css line
-		if (typeof value !== 'number' && value.includes(splitter)) {
-			return breakpointStyle(key, value, breakpoint, unit)
+		if (typeof value !== 'number' && value.includes(theme.splitter)) {
+			return breakpointStyle(key, value, breakpoint, unit, theme)
 		}
 		// But if the value does not contain splitter, then generate only one style
-		return breakpoints[0].size === breakpoint.size
+		return theme.breakpoints[0].size === breakpoint.size
 			? `${key}: ${(value || defaultValue)}${unit};`
 			: ``
 	}
@@ -73,8 +71,8 @@ export const propertyGenerator = (
 		Destructure the valuesInString and generate css string code
 		for each breakpoint given by user.
 */
-export const breakpointStyle = (key, valuesInString, breakpoint, unit) => {
-	const stylesList = valuesInString.split(splitter)
+export const breakpointStyle = (key, valuesInString, breakpoint, unit, theme) => {
+	const stylesList = valuesInString.split(theme.splitter)
 	if (breakpoint) {
 		const { prefix } = breakpoint
 		const value = stylesList.filter(value => value.includes(prefix))[0] || null

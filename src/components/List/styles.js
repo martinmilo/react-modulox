@@ -1,8 +1,7 @@
 import { propertiesIterator } from '../../utils/'
 
-const { breakpoints } = require('../../../config')
-
 export const injectStyles = props => {
+	const { theme } = props
 	const styles = breakpoint => `
 		${propertiesIterator([
 			['flex-basis', props[breakpoint.size], false, '%'],
@@ -19,10 +18,10 @@ export const injectStyles = props => {
 			['flex-wrap', props.wrap],
 			['justify-content', props.justify],
 			['align-items', props.align],
-		], breakpoint)}
+		], breakpoint, theme)}
 	`
 
-	return breakpoints.map((breakpoint, index) => {
+	return theme.breakpoints.map((breakpoint, index) => {
 		if (index === 0) {
 			return `${styles(breakpoint)}`;
 		}

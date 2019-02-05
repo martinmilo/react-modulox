@@ -3,8 +3,7 @@ import propTypes from 'prop-types'
 import styled from 'styled-components'
 import { injectStyles } from './styles'
 import { commonTypes } from '../../types'
-
-const config = require('../../../config')
+import theme from '../../theme/'
 
 const List = ({ children, element, items, events, ...props }) => {
 	const Element = styled[element]`
@@ -12,7 +11,10 @@ const List = ({ children, element, items, events, ...props }) => {
 		::after {${props.after}}
 		::before {${props.before}}
 		:hover {${props.hover}}
-		& > * {${props.spacing}}
+		& > * {
+			margin: ${props.spacing};
+			${props.childs}
+		}
 		${props.style}
 	`
 	const renderChildren = (item, index) => React.isValidElement(children)
@@ -55,14 +57,16 @@ List.defaultProps = {
 	align: 'initial',
 	direction: 'column',
 	background: 'transparent',
-	transition: '',
-	className: '',
-	spacing: '',
-	style: '',
-	hover: '',
-	before: '',
-	after: '',
-	[config.breakpoints[0].size]: 100,
+	transition: ``,
+	className: ``,
+	spacing: ``,
+	style: ``,
+	hover: ``,
+	before: ``,
+	after: ``,
+	childs: ``,
+	xx: 100,
+	theme,
 }
 
 export default List
