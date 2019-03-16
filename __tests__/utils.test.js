@@ -1,5 +1,5 @@
 import { propertyGenerator, propertiesIterator } from '../src/utils/'
-import theme from '../src/theme/'
+import theme from '../default.theme'
 
 describe('Test propertyGenerator', () => {
   const breakpoint = theme.breakpoints[0]

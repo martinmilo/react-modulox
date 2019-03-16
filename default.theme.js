@@ -1,4 +1,5 @@
-const theme = {
+// If you define your own theme, don't forget to keep the structure as it is defined here!
+module.exports = {
   // Define your breakpoints
   // You can define whatever number of breakpoints you want
   // Just keep in mind, that it's mobile-first
@@ -64,6 +65,3 @@ const theme = {
     }
   }
 }
-
-// If you define your own theme, don't forget to keep the structure as it is defined here!
-export default theme

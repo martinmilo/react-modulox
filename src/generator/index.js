@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { propertiesIterator } from '../utils'
+import { getThemePath } from '../utils'
 
-const elementPropsSchemaList = (type, props, theme, breakpoint) => {
+const theme = require(getThemePath())
+
+const elementPropsSchemaList = (type, props, breakpoint) => {
   switch (type) {
     case 'Box':
     case 'Row':
@@ -59,10 +62,9 @@ const elementPropsSchemaList = (type, props, theme, breakpoint) => {
 }
 
 const injectStyles = (type, props) => {
-  const { theme } = props
   const generateStyles = breakpoint =>
     `${propertiesIterator(
-      elementPropsSchemaList(type, props, theme, breakpoint),
+      elementPropsSchemaList(type, props, breakpoint),
       breakpoint,
       theme
     )}`

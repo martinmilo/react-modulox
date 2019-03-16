@@ -2,7 +2,6 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
-import theme from '../theme'
 
 const List = ({ renderItem, data, events, ...props }) => {
   const Element = styledElement('List', props)
@@ -42,8 +41,7 @@ List.defaultProps = {
   hover: ``,
   before: ``,
   after: ``,
-  childs: ``,
-  theme
+  childs: ``
 }
 
 export default List
