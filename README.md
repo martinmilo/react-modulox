@@ -14,13 +14,9 @@ Just another UI library? No way. ModuloX is a lightweight library that contains 
 
 ## Why?
 
----
-
 Because working with styles is always a pain. As your application grows, it's tough not to lose your mind, even harder when the project has to be perfect on all kinds of different screen sizes. ModuloX enables you to easily specify your styles via props for all breakpoints you defined in your theme.
 
 ## Getting started
-
----
 
 Install the package with npm:
 
@@ -29,8 +25,6 @@ $ npm i @javascriptfox/modulox
 ```
 
 ## Documentation
-
----
 
 Let's start with an example:
 
@@ -72,8 +66,6 @@ height="200px"
 # ... Rest of the documentation is in progress ...
 
 ## Customize theme
-
----
 
 Behind the scene, ModuloX is using the default theme, which looks like this:
 
@@ -133,9 +125,9 @@ You can override default theme by defining your own theme and passing it down to
 
 ## Todo
 
-[ ] _Add more components (Link, Image, Icon...)_
-[ ] _Add animations properties_
-[ ] _Add whatever useful that comes to my mind_
+[ ] Add more components (Link, Image, Icon...)
+[ ] Add animations properties
+[ ] Add whatever useful that comes to my mind
 
 ## License
 
