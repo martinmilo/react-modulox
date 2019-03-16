@@ -22,6 +22,9 @@
   ],
   "author": "Martin Milo <milomartin.za@gmail.com> (https://martinmilo.com)",
   "license": "MIT",
+  "bin": {
+    "modulox": "./lib/cli/index.js"
+  },
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
@@ -54,5 +57,7 @@
       "./jestsetup.js"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "path": "^0.12.7"
+  }
 }

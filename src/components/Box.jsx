@@ -1,7 +1,6 @@
 import React from 'react'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
-import theme from '../theme'
 
 const Box = ({ children, events, ...props }) => {
   const Element = styledElement('Box', props)
@@ -38,8 +37,7 @@ Box.defaultProps = {
   hover: ``,
   before: ``,
   after: ``,
-  childs: ``,
-  theme
+  childs: ``
 }
 
 export default Box
