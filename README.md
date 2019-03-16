@@ -10,7 +10,7 @@
     <a href="https://github.com/JavascriptFox/modulox/blob/master/LICENSE"><img src="https://img.shields.io/github/license/JavascriptFox/modulox.svg?colorB=blue" alt="License"></a>
 </p>
 
-Just another UI library? No way. ModuloX is a lightweight library that contains core building blocks which helps you to build your UI in React. Scalable, easy to use, perfect for prototyping. Enjoy.
+Just another robust UI library that tries to solve every problem? No way. ModuloX is a small and lightweight library that contains core building blocks which helps you to build your UI in React. Scalable, easy to use, perfect for prototyping. Enjoy.
 
 ## Why?
 
