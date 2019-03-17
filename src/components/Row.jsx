@@ -1,6 +1,7 @@
 import React from 'react'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
+import theme from '../../modulox.theme'
 
 const Row = ({ children, events, ...props }) => {
   const Element = styledElement('Row', props)
@@ -37,7 +38,8 @@ Row.defaultProps = {
   hover: ``,
   before: ``,
   after: ``,
-  childs: ``
+  childs: ``,
+  theme
 }
 
 export default Row
