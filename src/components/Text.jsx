@@ -2,6 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
+import theme from '../../default.theme'
 
 const Text = ({ children, events, ...props }) => {
   const Element = styledElement('Text', props)
@@ -46,7 +47,8 @@ Text.defaultProps = {
   hover: ``,
   before: ``,
   after: ``,
-  childs: ``
+  childs: ``,
+  theme
 }
 
 export default Text

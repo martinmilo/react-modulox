@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs-extra')
 const path = require('path')
+const shell = require('shelljs')
 
 // Get the arguments from command line
 const [, , ...args] = process.argv
@@ -21,24 +22,37 @@ const file = rootPath => {
   const defaultThemePath = `${getPath('/modulox')}/modulox/default.theme.js`
   const generatedThemePath = `${getPath('/node_modules')}/modulox.theme.js`
 
+  const defaultComponentsPath = `${getPath(
+    '/modulox'
+  )}/modulox/default.components.js`
+  const generatedComponentsPath = `${getPath('/node_modules')}/modulox.components.js`
+
   // If generated file already exists, return error
   fs.existsSync(generatedThemePath) && exit(`ModuloX theme file already exists!`)
+  fs.existsSync(generatedComponentsPath) &&
+    exit(`ModuloX components file already exists!`)
 
   // If the file is not generated, generate a new one
   const defaultThemeFile = fs.readFileSync(defaultThemePath, 'utf8')
   fs.outputFileSync(generatedThemePath, defaultThemeFile)
   console.log(`ModuloX theme file was successfuly created!`)
+
+  const defaultComponentsFile = fs.readFileSync(defaultComponentsPath, 'utf8')
+  fs.outputFileSync(generatedComponentsPath, defaultComponentsFile)
+  console.log(
+    `ModuloX components file was successfuly created! Don't forget to uncomment the code there and import components from there!`
+  )
   return
 }
 
-const applyTheme = rootPath => {
+const buildTheme = rootPath => {
   const themePath = `${getPath('/node_modules')}/modulox.theme.js`
   const localThemePath = `${getPath('/modulox')}/modulox/modulox.theme.js`
 
   // If generated file does not exists, return error
   !fs.existsSync(themePath) &&
     exit(
-      `ModuloX theme file was not found! Run init command before you try to apply theme!`
+      `ModuloX theme file was not found! Run init command before you try to build theme!`
     )
 
   // If file is generated, copy the changes to the modulox.theme.js
@@ -58,13 +72,16 @@ function init(purpose, rootPath) {
   return
 }
 
-// Apply command
-function apply(purpose, rootPath) {
+// Build command
+function build(purpose, rootPath) {
   if (typeof purpose !== 'undefined') {
-    file(rootPath)
+    buildTheme(rootPath)
+    shell.exec(
+      `webpack --mode production ${rootPath}/node_modules/@javascriptfox/modulox/webpack.config.js`
+    )
     return
   }
-  console.log('Unknown command apply in this format!')
+  console.log('Unknown command build in this format!')
   return
 }
 
@@ -80,8 +97,8 @@ function run() {
       init(args[0], rootPath)
       return
     }
-    case 'apply': {
-      apply(args[0], rootPath)
+    case 'build': {
+      build(args[0], rootPath)
       return
     }
     default: {
