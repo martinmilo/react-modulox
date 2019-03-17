@@ -61,7 +61,7 @@ function init(purpose, rootPath) {
 // Apply command
 function apply(purpose, rootPath) {
   if (typeof purpose !== 'undefined') {
-    file(rootPath)
+    applyTheme(rootPath)
     return
   }
   console.log('Unknown command apply in this format!')
