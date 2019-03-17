@@ -23,7 +23,7 @@
   "author": "Martin Milo <milomartin.za@gmail.com> (https://martinmilo.com)",
   "license": "MIT",
   "bin": {
-    "modulox": "./lib/cli/index.js"
+    "modulox": "./cli.js"
   },
   "peerDependencies": {
     "react": "^16.7.0",
@@ -48,7 +48,7 @@
     "react-test-renderer": "^16.7.0",
     "styled-components": "^3.0.2",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.3.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
@@ -58,6 +58,7 @@
     ]
   },
   "dependencies": {
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "shelljs": "^0.8.3"
   }
 }

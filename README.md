@@ -125,8 +125,8 @@ You can override default theme by defining your own theme and passing it down to
 
 ## Todo
 
-<p>[ ] Add more components (Link, Image, Icon...)</p><br />
-<p>[ ] Add animations properties</p><br />
+<p>[ ] Add more components (Link, Image, Icon...)</p>
+<p>[ ] Add animations properties</p>
 <p>[ ] Add whatever useful that comes to my mind</p>
 
 ## License

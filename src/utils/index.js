@@ -89,19 +89,3 @@ function getFinalUnit(key, value, unit) {
   }
   return unit
 }
-
-// Get theme
-export const getThemePath = () => {
-  const path = require('path')
-  const fs = require('fs-extra')
-
-  const rootPath = path.resolve(__dirname)
-  const getPath = (slice, file) =>
-    `${rootPath.slice(0, rootPath.indexOf(slice))}/${file}`
-
-  const defaultThemePath = getPath('/modulox/src', 'modulox/default.theme.js')
-  const generatedThemePath = getPath('/node_modules', 'modulox.theme.js')
-
-  if (fs.existsSync(generatedThemePath)) return generatedThemePath
-  return defaultThemePath
-}
