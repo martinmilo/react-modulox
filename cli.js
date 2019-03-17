@@ -22,13 +22,26 @@ const file = rootPath => {
   const defaultThemePath = `${getPath('/modulox')}/modulox/default.theme.js`
   const generatedThemePath = `${getPath('/node_modules')}/modulox.theme.js`
 
+  const defaultComponentsPath = `${getPath(
+    '/modulox'
+  )}/modulox/default.components.js`
+  const generatedComponentsPath = `${getPath('/node_modules')}/modulox.components.js`
+
   // If generated file already exists, return error
   fs.existsSync(generatedThemePath) && exit(`ModuloX theme file already exists!`)
+  fs.existsSync(generatedComponentsPath) &&
+    exit(`ModuloX components file already exists!`)
 
   // If the file is not generated, generate a new one
   const defaultThemeFile = fs.readFileSync(defaultThemePath, 'utf8')
   fs.outputFileSync(generatedThemePath, defaultThemeFile)
   console.log(`ModuloX theme file was successfuly created!`)
+
+  const defaultComponentsFile = fs.readFileSync(defaultComponentsPath, 'utf8')
+  fs.outputFileSync(generatedComponentsPath, defaultComponentsFile)
+  console.log(
+    `ModuloX components file was successfuly created! Don't forget to uncomment the code there and import components from there!`
+  )
   return
 }
 
@@ -64,9 +77,7 @@ function build(purpose, rootPath) {
   if (typeof purpose !== 'undefined') {
     buildTheme(rootPath)
     shell.exec(
-      `webpack
-				--mode production ${rootPath}/node_modules/@javascriptfox/modulox/src/index.js
-				--output ${rootPath}/node_modules/@javascriptfox/modulox/lib/bundle.js`
+      `webpack --mode production ${rootPath}/node_modules/@javascriptfox/modulox/webpack.config.js`
     )
     return
   }

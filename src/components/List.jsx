@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
-import theme from '../../modulox.theme'
+import theme from '../../default.theme'
 
 const List = ({ renderItem, data, events, ...props }) => {
   const Element = styledElement('List', props)

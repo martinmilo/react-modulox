@@ -1,7 +1,7 @@
 import React from 'react'
 import { commonTypes } from '../types'
 import { styledElement } from '../generator'
-import theme from '../../modulox.theme'
+import theme from '../../default.theme'
 
 const Row = ({ children, events, ...props }) => {
   const Element = styledElement('Row', props)
