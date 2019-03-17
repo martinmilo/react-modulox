@@ -23,7 +23,7 @@
   "author": "Martin Milo <milomartin.za@gmail.com> (https://martinmilo.com)",
   "license": "MIT",
   "bin": {
-    "modulox": "./lib/cli/index.js"
+    "modulox": "./cli.js"
   },
   "peerDependencies": {
     "react": "^16.7.0",

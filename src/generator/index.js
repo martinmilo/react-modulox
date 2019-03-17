@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import { propertiesIterator } from '../utils'
 import { getThemePath } from '../utils'
 
-const theme = require(getThemePath())
+const path = require('path')
+const fs = require('fs-extra')
+const theme = require('../../modulox.theme')
 
 const elementPropsSchemaList = (type, props, breakpoint) => {
   switch (type) {
