@@ -18,10 +18,14 @@ Because working with styles is always a pain. As your application grows, it's to
 
 ## Getting started
 
-Install the package with npm:
+Install ModuloX via npm:
 
 ```sh
-$ npm i @javascriptfox/modulox
+$ npm install @javascriptfox/modulox --save-dev
+```
+
+```sh
+$ yarn add @javascriptfox/modulox --dev
 ```
 
 ## Documentation
@@ -63,14 +67,32 @@ If you want to use only one rule for each breakpoint, pass only one value withou
 height="200px"
 ```
 
-# ... Rest of the documentation is in progress ...
+_... Rest of the documentation is in progress ..._
 
 ## Customize theme
 
-Behind the scene, ModuloX is using the default theme, which looks like this:
+Behind the scene, ModuloX is using the default theme. You can override this theme by generating your own theme and exporting all ModuloX components with your theme.
+
+Let's generate a theme. We provided CLI utility to generate a theme and components file easily:
 
 ```sh
-const theme = {
+$	npx modulox init
+```
+
+```sh
+$	yarn modulox init
+```
+
+Command should create 2 files - **modulox.theme.js** & **modulox.components.js**
+
+You can add your own colors, breakpoints, fonts, override default properties defined in the theme you generated, but keep in mind, that you should keep the structure of the theme. For example, breakpoints and splitter is required, if you delete these, you wouldn't be able to use ModuloX.
+
+Feel free to override existing breakpoint prefixes, sizes, min-widths or adding colors, defining your own line-heights, letter-spacings and so on.
+
+Generated theme file should look like this: (if init command failed, just create your theme manually)
+
+```sh
+module.exports = {
   breakpoints: [
     { size: `xt`, prefix: `t:`, minWidth: 0 },
     { size: `xs`, prefix: `s:`, minWidth: 565 },
@@ -78,7 +100,6 @@ const theme = {
     { size: `xl`, prefix: `l:`, minWidth: 1200 },
     { size: `xg`, prefix: `g:`, minWidth: 1980 }
   ],
-  splitter: `,`,
   colors: {
     red: '#d41111',
     blue: '#add8e6',
@@ -93,6 +114,7 @@ const theme = {
       h5: "'Playfair Display', sans-serif",
       h6: "'Playfair Display', sans-serif",
       p: "'Roboto', serif",
+      a: "'Roboto', serif",
       li: "'Roboto', serif",
       span: "'Roboto', serif",
       small: "'Roboto', serif"
@@ -105,6 +127,7 @@ const theme = {
       h5: 't:|17px|, m:|22px|, l:|26px|',
       h6: 't:|16px|, m:|19px|, l:|22px|',
       p: 't:|16px|, m:|16px|, l:|16px|',
+      a: 't:|16px|, m:|16px|, l:|16px|',
       li: 't:|16px|, m:|16px|, l:|16px|',
       span: 't:|15px|, m:|15px|, l:|15px|',
       small: 't:|12px|, m:|12px|, l:|12px|'
@@ -113,21 +136,84 @@ const theme = {
       h1: 't:|900|, m:|900|, l:|900|',
       h2: 't:|900|, m:|900|, l:|900|',
       h3: 't:|700|, m:|700|, l:|700|'
+    },
+    lines: {
+      h1: 1.35,
+      h2: 1.375,
+      h3: 1.4,
+      h4: 1.45,
+      h5: 1.475,
+      h6: 1.5,
+      p: 1.6,
+      a: 1.6,
+      li: 1.6,
+      span: 1.7,
+      small: 1.75
+    },
+    spaces: {
+      h1: 0.25,
+      h2: 0.2,
+      h3: 0.15,
+      h4: 0.1,
+      h5: 0.1,
+      h6: 0.1,
+      p: 0.25,
+      a: 0.25,
+      li: 0.25,
+      span: 0.3,
+      small: 0.35
     }
   }
 }
-export default theme
 ```
 
-You can override default theme by defining your own theme and passing it down to the children via Context API. Keep in mind, that you should keep up the structure of the theme as it's defined here. Without that, your modular components will not work properly.
+**After generating and defining your own theme**
 
-... Customizing the theme is in progress, will be much easier ...
+Don't forget to open **modulox.components** and uncomment all lines to apply your theme! Then you need to import your components directly from this file.
+
+Default modulox.components file should look like this:
+
+```sh
+import { Box, Row, List, Text } from '@javascriptfox/modulox'
+import theme from './modulox.theme'
+
+const MX = {
+  Box: props => <Box theme={theme} {...props} />,
+  Row: props => <Row theme={theme} {...props} />,
+  List: props => <List theme={theme} {...props} />,
+  Text: props => <Text theme={theme} {...props} />
+}
+
+export default MX
+```
+
+Now you can import ModuloX components directly from this file:
+
+```sh
+import MX from './modulox.components';
+
+const { Box, Row, Text } = MX;
+
+const MyReactComponent = () => {
+	<Row>
+		<Box hover="border-bottom: 1px solid red;">
+			<Text space={0.5} transform="uppercase">Hello World!</Text>
+		</Box>
+		<Box display="t:|block|, m:|none|" background="red" width={50) height={50} />
+	</Row>
+}
+
+export default MyReactComponent;
+```
+
+Another option is to pass the theme down via Context API. This way, you don't need to create **modulox.components** file, just your theme. Then you can create ThemeProvider and pass down your theme.
 
 ## Todo
 
-<p>[ ] Add more components (Link, Image, Icon...)</p>
-<p>[ ] Add animations properties</p>
-<p>[ ] Add whatever useful that comes to my mind</p>
+- [ ] Add more components (Link, Image, Icon...)
+- [ ] Add more flexibility customizing the theme
+- [ ] Add animations properties
+- [ ] Add whatever useful that comes to my mind
 
 ## License
 
