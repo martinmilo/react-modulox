@@ -63,7 +63,11 @@ function init(purpose, rootPath) {
 function build(purpose, rootPath) {
   if (typeof purpose !== 'undefined') {
     buildTheme(rootPath)
-    shell.exec('npm run build')
+    shell.exec(
+      `webpack
+				--mode production ${rootPath}/node_modules/@javascriptfox/modulox/src/index.js
+				--output ${rootPath}/node_modules/@javascriptfox/modulox/lib/bundle.js`
+    )
     return
   }
   console.log('Unknown command build in this format!')
