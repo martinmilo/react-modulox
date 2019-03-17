@@ -28,25 +28,32 @@ const elementPropsSchemaList = (type, props, theme, breakpoint) => {
       ]
     case 'Text':
       const { element } = props
-      const { fonts, sizes, weights } = theme.typography
-      const isDefined = themeProperty =>
-        !!Object.keys(themeProperty).length && !!themeProperty[element]
-      const defaultFont = isDefined(fonts) ? fonts[element] : ``
-      const defaultSize = isDefined(sizes) ? sizes[element] : 16
-      const defaultWeight = isDefined(weights) ? weights[element] : 'normal'
+      const { fonts, sizes, weights, lines, spaces } = theme.typography
+      const getDefaultThemeProp = (keyProp, defaultValue) => {
+        if (!!Object.keys(keyProp).length && !!keyProp[element])
+          return keyProp[element]
+        return defaultValue
+      }
+      const defaultFont = getDefaultThemeProp(fonts, ``)
+      const defaultSize = getDefaultThemeProp(sizes, 16)
+      const defaultWeight = getDefaultThemeProp(weights, 'normal')
+      const defaultLine = getDefaultThemeProp(lines, 1.5)
+      const defaultSpace = getDefaultThemeProp(spaces, 0.25)
       return [
         ['font-family', props.font || defaultFont],
         ['font-size', props.size || defaultSize],
         ['font-weight', props.weight || defaultWeight],
+        ['letter-spacing', props.space || defaultSpace],
+        ['line-height', props.line || defaultLine],
+        ['white-space', props.wrap],
         ['text-transform', props.transform],
-        ['white-space', props.space],
         ['color', props.color, true, '', 'black'],
         ['display', props.display],
         ['position', props.position],
         ['padding', props.padding],
         ['width', props.width],
         ['height', props.height],
-        ['max-width', props.width || props.maxWidth, true, '', `${flexBase}%`],
+        ['max-width', props.width || props.maxWidth],
         ['max-height', props.height || props.maxHeight],
         ['background', props.background],
         ['margin', props.margin],

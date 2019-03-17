@@ -84,7 +84,8 @@ function getFinalValue(key, value, defaultValue, theme) {
 // Get final unit
 function getFinalUnit(key, value, unit) {
   if (typeof value === 'number') {
-    if (key === 'flex-basis' || key === 'font-weight') return unit
+    if (key === 'flex-basis' || key === 'font-weight' || key === 'line-height')
+      return unit
     return `px`
   }
   return unit

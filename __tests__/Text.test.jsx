@@ -16,10 +16,14 @@ describe('Text with different render methods', () => {
 
   it('renders the Text with changed style rules', () => {
     const tree = renderer
-      .create(Component({ color: 'yellow', space: 'pre-line' }))
+      .create(
+        Component({ color: 'yellow', wrap: 'pre-line', line: 1.75, space: '0.5px' })
+      )
       .toJSON()
     expect(tree).toHaveStyleRule('color', 'yellow')
     expect(tree).toHaveStyleRule('white-space', 'pre-line')
+    expect(tree).toHaveStyleRule('line-height', '1.75')
+    expect(tree).toHaveStyleRule('letter-spacing', '0.5px')
   })
 
   it('renders the Text with default theme properties', () => {
@@ -27,6 +31,7 @@ describe('Text with different render methods', () => {
     expect(tree).toHaveStyleRule('color', '#d41111')
     expect(tree).toHaveStyleRule('font-family', "'Roboto',serif")
     expect(tree).toHaveStyleRule('font-size', '15px')
+    expect(tree).toHaveStyleRule('white-space', 'normal')
   })
 
   it('renders the Text with correct style rules for h1', () => {
@@ -34,6 +39,26 @@ describe('Text with different render methods', () => {
     expect(tree).toHaveStyleRule('color', 'black')
     expect(tree).toHaveStyleRule('font-family', "'Playfair Display',sans-serif")
     expect(tree).toHaveStyleRule('font-size', '24px')
+    expect(tree).toHaveStyleRule('letter-spacing', '0.25px')
+    expect(tree).toHaveStyleRule('line-height', '1.35')
+  })
+
+  it('renders the Text with correct style rules for p', () => {
+    const tree = renderer.create(Component({ element: 'p' })).toJSON()
+    expect(tree).toHaveStyleRule('color', 'black')
+    expect(tree).toHaveStyleRule('font-family', "'Roboto',serif")
+    expect(tree).toHaveStyleRule('font-size', '16px')
+    expect(tree).toHaveStyleRule('letter-spacing', '0.25px')
+    expect(tree).toHaveStyleRule('line-height', '1.6')
+  })
+
+  it('renders the Text with correct style rules for span', () => {
+    const tree = renderer.create(Component()).toJSON()
+    expect(tree).toHaveStyleRule('color', 'black')
+    expect(tree).toHaveStyleRule('font-family', "'Roboto',serif")
+    expect(tree).toHaveStyleRule('font-size', '15px')
+    expect(tree).toHaveStyleRule('letter-spacing', '0.3px')
+    expect(tree).toHaveStyleRule('line-height', '1.7')
   })
 
   it('render the Text and set the props', () => {

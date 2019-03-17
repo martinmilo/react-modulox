@@ -38,6 +38,7 @@ module.exports = {
       h5: "'Playfair Display', sans-serif",
       h6: "'Playfair Display', sans-serif",
       p: "'Roboto', serif",
+      a: "'Roboto', serif",
       li: "'Roboto', serif",
       span: "'Roboto', serif",
       small: "'Roboto', serif"
@@ -51,6 +52,7 @@ module.exports = {
       h5: 't:|17px|, m:|22px|, l:|26px|',
       h6: 't:|16px|, m:|19px|, l:|22px|',
       p: 't:|16px|, m:|16px|, l:|16px|',
+      a: 't:|16px|, m:|16px|, l:|16px|',
       li: 't:|16px|, m:|16px|, l:|16px|',
       span: 't:|15px|, m:|15px|, l:|15px|',
       small: 't:|12px|, m:|12px|, l:|12px|'
@@ -61,6 +63,32 @@ module.exports = {
       h1: 't:|900|, m:|900|, l:|900|',
       h2: 't:|900|, m:|900|, l:|900|',
       h3: 't:|700|, m:|700|, l:|700|'
+    },
+    lines: {
+      h1: 1.35,
+      h2: 1.375,
+      h3: 1.4,
+      h4: 1.45,
+      h5: 1.475,
+      h6: 1.5,
+      p: 1.6,
+      a: 1.6,
+      li: 1.6,
+      span: 1.7,
+      small: 1.75
+    },
+    spaces: {
+      h1: 0.25,
+      h2: 0.2,
+      h3: 0.15,
+      h4: 0.1,
+      h5: 0.1,
+      h6: 0.1,
+      p: 0.25,
+      a: 0.25,
+      li: 0.25,
+      span: 0.3,
+      small: 0.35
     }
   }
 }
