@@ -3,6 +3,7 @@
 /coverage
 /coverage/
 /lib/bundle.js
+.editorconfig
 .codecov.yml
 .travis.yml
 .env

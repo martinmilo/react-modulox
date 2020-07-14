@@ -2,18 +2,13 @@ module.exports = {
   // Define your breakpoints
   // You can define whatever number of breakpoints you want
   // Just keep in mind, that it's mobile-first
-  // So the breakpoints are defined with min-width
-  breakpoints: [
-    { size: `xt`, prefix: `t:`, minWidth: 0 },
-    { size: `xs`, prefix: `s:`, minWidth: 565 },
-    { size: `xm`, prefix: `m:`, minWidth: 769 },
-    { size: `xl`, prefix: `l:`, minWidth: 1200 },
-    { size: `xg`, prefix: `g:`, minWidth: 1980 }
-  ],
-  // Splitter, that will split the multiple values for different breakpoints
-  // For example color={`t:|red|, s:|blue|, m:|green|`}
-  // ModuloX will handle splitting up this values and generate correct media queries
-  splitter: `,`,
+	// So the breakpoints are defined with min-width
+	breakpoints: {
+		m: 0,
+		t: 769,
+		d: 1200,
+		g: 1980
+	},
   // Colors defined by you for your amazing project!
   // Just pass string representing the color and you'll get what you defined here!
   // Example: <Box background="red" /> will generate div with '#d41111' as background

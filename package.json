@@ -16,6 +16,7 @@
     "url": "git+https://github.com/JavascriptFox/modulox.git"
   },
   "keywords": [
+    "react",
     "modulox",
     "ui",
     "components"
@@ -26,39 +27,32 @@
     "modulox": "./cli.js"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
+    "@babel/plugin-proposal-do-expressions": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
+    "@babel/plugin-transform-classes": "^7.9.2",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.8.3",
     "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.0-beta.0",
-    "babel-preset-env": "^1.7.0",
-    "codecov": "^3.1.0",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.7.1",
+    "babel-loader": "^8.1.0",
+    "codecov": "^3.7.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "fs-extra": "^4.0.2",
-    "jest": "^23.6.0",
-    "jest-styled-components": "^6.3.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-test-renderer": "^16.7.0",
-    "styled-components": "^3.0.2",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.3.0"
-  },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "setupFiles": [
-      "./jestsetup.js"
-    ]
+    "jest": "^24.9.0",
+    "jest-styled-components": "^7.0.2",
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0",
+    "react-test-renderer": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "path": "^0.12.7",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.4"
   }
 }
