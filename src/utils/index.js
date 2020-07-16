@@ -48,13 +48,17 @@ function generateCSSProp(
   { key, cssKey, appendUnit, defaultValue, themePath }
 ) {
   const finalKey = cssKey || key;
-  const finalValue =
+  const tempValue =
     // First, try to select the value from theme
-    deepGet(theme, themePath)?.[value] ||
-    // If appendUnit param is set up, append px to the value
-    (appendUnit && typeof value === 'number' ? `${value}px` : value) ||
+		deepGet(theme, themePath)?.[value] ||
+		// If theme value is not present, fallback to the value we passed down
+    value ||
     // Otherwise set the defaultValue, either from theme or directly
     (/\./.test(defaultValue) ? deepGet(theme, defaultValue) : defaultValue);
+
+	// On top of that, check if the appendUnit was set up to true and optionally append px to the value
+  const finalValue =
+    appendUnit && typeof tempValue === 'number' ? `${tempValue}px` : tempValue;
 
   // Finally, return the complete css property with correct key and value
   return `${finalKey}: ${finalValue};`;

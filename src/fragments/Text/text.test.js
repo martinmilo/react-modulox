@@ -4,13 +4,27 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import ThemeProvider from '../../services/theme';
+import defaultTheme from '../../../default.theme';
 import Text from './';
 
 describe('TextFragment', () => {
-  it('renders defaul font size and font family', () => {
-    const tree = renderer.create(<Text />).toJSON();
-		expect(tree).toHaveStyleRule('font-family', 'Roboto');
-		expect(tree).toHaveStyleRule('font-size', '1rem');
+  it('renders default font size and font family', () => {
+    const tree = renderer
+      .create(
+        <ThemeProvider
+          theme={{
+            typography: {
+              defaultFontFamily: 'Arial',
+              defaultFontSize: 20,
+            },
+          }}
+        >
+          <Text />
+        </ThemeProvider>
+      )
+      .toJSON();
+    expect(tree).toHaveStyleRule('font-family', 'Arial');
+    expect(tree).toHaveStyleRule('font-size', '20px');
   });
 
   it('renders with changed style rules', () => {
