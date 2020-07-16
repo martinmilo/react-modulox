@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import ThemeProvider from '../../theme';
+import ThemeProvider from '../../services/theme';
 import List from './';
 
 describe('ListFragment', () => {

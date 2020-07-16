@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import blueprints from './blueprints.json';
+import blueprints from './blueprints';
 import { injectCSS } from '../../utils';
 
 const injectCSSFn = injectCSS.bind(null, blueprints);

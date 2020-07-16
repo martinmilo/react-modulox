@@ -1,5 +1,6 @@
 import { injectCSS } from './';
-import baseBlueprints from '../fragments/Base/blueprints.json';
+import baseBlueprints from '../fragments/Base/blueprints';
+import textBlueprints from '../fragments/Text/blueprints';
 import defaultTheme from '../../default.theme';
 
 describe('Test injextCSS with Base Fragment blueprints', () => {
@@ -46,6 +47,14 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
     expect(injectedCSS).toContain('display: flex;');
   });
 
+  it('should select correct value from theme when path has subpath', () => {
+    const injectedCSS = injectCSSFn({ gapHorizontal: 1 });
+
+    expect(injectedCSS).toContain(
+      '> *:not(:last-child) { margin-right: 1.5rem; }'
+    );
+  });
+
   describe('when using breakpoint style syntax', () => {
     it('should return styles with correct media queries', () => {
       const injectedCSS = injectCSSFn({
@@ -53,7 +62,7 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
       });
 
       [
-        '@media (min-width: 1200px) {padding: 20px; }',
+        '@media (min-width: 1200px) { padding: 20px; }',
         'padding: 10px;',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
@@ -75,7 +84,7 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
       });
 
       [
-        '@media (min-width: 1200px) {color: #add8e6; }',
+        '@media (min-width: 1200px) { color: #add8e6; }',
         'color: #d41111;',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
@@ -88,11 +97,34 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
       });
 
       [
-        '@media (min-width: 1200px) { > *:not(:last-child) { margin-right: 15px; }}',
+        '@media (min-width: 1200px) { > *:not(:last-child) { margin-right: 15px; } }',
         '> *:not(:last-child) { margin-right: 5px; }',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
       });
+    });
+  });
+});
+
+describe('Test injextCSS with Text Fragment blueprints', () => {
+  const injectCSSFn = props =>
+    injectCSS(textBlueprints, { theme: defaultTheme, ...props });
+
+  it('should select correct default font family value from theme', () => {
+    const injectedCSS = injectCSSFn();
+
+    expect(injectedCSS).toContain("font-family: 'Roboto', serif;");
+  });
+
+  it('should set correct breakpoint styles even when BSS (breakpoint style syntax) is used in theme', () => {
+    // Expectation from theme file = m:|2.25rem| d:|3rem|
+    const injectedCSS = injectCSSFn({ size: 1 });
+
+    [
+      '@media (min-width: 1200px) { font-size: 3rem; }',
+      'font-size: 2.25rem;',
+    ].forEach(cssProp => {
+      expect(injectedCSS).toContain(cssProp);
     });
   });
 });

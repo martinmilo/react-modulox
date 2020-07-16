@@ -3,10 +3,16 @@ import 'jest-styled-components';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import ThemeProvider from '../../theme';
+import ThemeProvider from '../../services/theme';
 import Text from './';
 
 describe('TextFragment', () => {
+  it('renders defaul font size and font family', () => {
+    const tree = renderer.create(<Text />).toJSON();
+		expect(tree).toHaveStyleRule('font-family', 'Roboto');
+		expect(tree).toHaveStyleRule('font-size', '1rem');
+  });
+
   it('renders with changed style rules', () => {
     const tree = renderer
       .create(
