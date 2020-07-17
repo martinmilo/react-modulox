@@ -1,7 +1,5 @@
-<h1 align="center">ModuloX</h1>
-<p align="center">
-	Core building blocks for your UI in React.
-</p>
+<h1 align="center">React ModuloX</h1>
+<p align="center">Core building blocks for your UI in React.</p>
 
 <p align="center">
     <a href="https://travis-ci.org/JavascriptFox/modulox"><img src="https://img.shields.io/travis/JavascriptFox/modulox/master.svg" alt="Build Status"></a>
@@ -10,70 +8,99 @@
     <a href="https://github.com/JavascriptFox/modulox/blob/master/LICENSE"><img src="https://img.shields.io/github/license/JavascriptFox/modulox.svg?colorB=blue" alt="License"></a>
 </p>
 
-Just another robust UI library that tries to solve every problem? No way. ModuloX is a small and lightweight library that contains core building blocks which helps you to build your UI in React. Scalable, easy to use, perfect for prototyping. Enjoy.
+React ModuloX is a tiny, unopinionated UI library whose primary goal is to provide core building blocks for your React application. These blocks give you very intuitive API to handle complex theming and styling for various screen sizes.
 
 ## Why?
 
-Because working with styles is always a pain. As your application grows, it's tough not to lose your mind, even harder when the project has to be perfect on all kinds of different screen sizes. ModuloX enables you to easily specify your styles via props for all breakpoints you defined in your theme.
+Because working with styles is always a pain. As your application grows, it's tough not to lose your mind, even harder when the project has to work perfectly on all kinds of screen sizes. Instead of manually handling media queries, and repeat yourself gazillion times with media queries syntax, you can pass down the simple string via props, and specify values for each breakpoint.
+
+On top of that, you can leverage the power of theming and set your variables in a single place. Instead of hardcoding hex codes, font sizes, and other variables, you can reference a variable from the theme and make your life much more comfortable.
+
+## Installation
+
+```sh
+npm install @javascriptfox/modulox --save-dev
+```
+
+```sh
+yarn add @javascriptfox/modulox --dev
+```
+
+## Prerequisites
+
+React ModuloX does not need any setup, but to use all features (especially breakpoint style syntax), you have to wrap your App in ThemeProvider.
+
+```sh
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import { ThemeProvider } from '@javascriptfox/modulox'
+
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+)
+```
+
+You don't have to pass down your own theme to <code>ThemeProvider</code>; if you don't specify the theme, the default one will be used implicitly. Check out the Theming section to learn more about theme generation and customization.
+
+With this setup, you're basically good to go! 🚀
 
 ## Getting started
 
-Install ModuloX via npm:
+Core building blocks, called **Fragments**, are the backbone of React ModuloX. Under the hood, React ModuloX uses a powerful library <a href="https://styled-components.com/">styled-components</a>, which I definitely recommend to check out, and give it a shot. The fragments are nothing more than just styled-components with a simple config called blueprints - these serve as middleware between passed props and the styled-component, and transform certain props to more sophisticated styles.
+
+Let's look at a very basic example to give you an overview of how it looks. I'm importing a <code>Div</code> and trying to make it with fixed-width on desktop devices (breakpoints are adjustable in theme), but I also want it to have 100% width on mobile devices. I want this <code>Div</code> to be slightly grey-ish, and use the variable I specified in my theme. Finally, I want this to use flexbox layout as a column because later on, I'll add more children components to this.
 
 ```sh
-$ npm install @javascriptfox/modulox --save-dev
+import { Div } from '@javascriptfox/modulox'
+
+const App = () => (
+	<Div width="s:|100%| d:|875px|" background="greyLight" flex>
+		I'm inside the Fragment!
+	</Div>
+)
 ```
+
+The thing you are probably most interested (or confused about 🤯) in is this property:
 
 ```sh
-$ yarn add @javascriptfox/modulox --dev
+s:|100%| d:|875px|
 ```
 
-## Documentation
+This is called breakpoint style syntax, and it allows you to pass simple string describing styles for multiple screen sizes. Behind these keys, <code>s</code> and <code>d</code> are values representing min-widths. You can override them in the theme file, and use your own keys describing the screen size with whatever name you prefer.
 
-Let's start with an example:
+By default, you don't have to set up your own theme if you don't want to, but I highly recommend you do so. You can check out below in the Theming section how to quickly generate your theme file from a terminal, so you don't have to copy & paste the whole theme file from here manually.
 
-<img src="https://github.com/JavascriptFox/modulox/blob/master/examples/intro/code.png" alt="ModuloX example">
-
-**Row** - Keeps children in one row (obviously) with space between
-**Box** - Basic block, you can use align/justify props with this component (it's display flex by default)
-
-This code will output two boxes that are in one row with width and height of 250px for each box. Boxes will change it's size on smaller screens to 100px.
-
-What the hell is this?
+This is how the part of the theme with breakpoints config looks like:
 
 ```sh
-height="t:|100px|, m:|250px|"
+breakpoints: {
+  s: 0,
+  m: 576,
+  t: 768,
+  d: 992,
+  l: 1200,
+},
 ```
 
-This is breakpoint style syntax (got to work on the name), which basically allows you to write media queries for this component in one line. These are the default breakpoints:
+It's a super simple object that consists of min-width as a value and custom-named key. You can leave it out if you're satisfied with these breakpoints, you can add more breakpoints, or you can also replace both keys and values of existing ones. Remember that you have to specify the zeroth breakpoint, i.e., breakpoint with value of <code>0</code>.
+
+If you have a value that you use on all screen sizes, you can omit breakpoint style syntax and pass a simple string or number.
 
 ```sh
-{ size: `xt`, prefix: `t:`, minWidth: 0 },
-{ size: `xs`, prefix: `s:`, minWidth: 565 },
-{ size: `xm`, prefix: `m:`, minWidth: 769 },
-{ size: `xl`, prefix: `l:`, minWidth: 1200 },
-{ size: `xg`, prefix: `g:`, minWidth: 1980 }
+<Div width="100%" height={100} />
 ```
 
-Legend: | **t** = _tiny_ | **s** = _small_ | **m** = _medium_ | **l** = _large_ | **g** = _gigantic_ |
+One important thing to remember here is that if you pass down the value as a number, for specific keys (such as height), the <code>px</code> unit will be appended. The above example then outputs a height of 100px. You can check out the **API reference** to learn more about the configuration, and how specific keys are transformed.
 
-In a nutshell, if you want to have different styles for a specific breakpoint, you pick up the prefix that is connected to that breakpoint and put a value inside brackets/pipes / whatever.
+## Theming
 
-In the example above, the height of the component will be 100px on tiny screens up to medium screens, which starts on **769px** by default. Height will be 250px on this component if the screen size is 769px or bigger.
-
-If you want to use only one rule for each breakpoint, pass only one value without any prefix like this:
-
-```sh
-height="200px"
-```
-
-_... Rest of the documentation is in progress ..._
-
-## Customize theme
-
-Behind the scene, ModuloX is using the default theme. You can override this theme by generating your own theme and exporting all ModuloX components with your theme.
-
-Let's generate a theme. We provided CLI utility to generate a theme and components file easily:
+Let's generate a theme file for your awesome project. React ModuloX provides CLI utility to generate it by running this command.
 
 ```sh
 $	npx modulox init
@@ -83,137 +110,37 @@ $	npx modulox init
 $	yarn modulox init
 ```
 
-Command should create 2 files - **modulox.theme.js** & **modulox.components.js**
-
-You can add your own colors, breakpoints, fonts, override default properties defined in the theme you generated, but keep in mind, that you should keep the structure of the theme. For example, breakpoints and splitter is required, if you delete these, you wouldn't be able to use ModuloX.
-
-Feel free to override existing breakpoint prefixes, sizes, min-widths or adding colors, defining your own line-heights, letter-spacings and so on.
-
-Generated theme file should look like this: (if init command failed, just create your theme manually)
+The output will be a <code>modulox.theme.js</code> file that is just a copy of the default theme. Feel free to adjust variables as you need.
 
 ```sh
-module.exports = {
-  breakpoints: [
-    { size: `xt`, prefix: `t:`, minWidth: 0 },
-    { size: `xs`, prefix: `s:`, minWidth: 565 },
-    { size: `xm`, prefix: `m:`, minWidth: 769 },
-    { size: `xl`, prefix: `l:`, minWidth: 1200 },
-    { size: `xg`, prefix: `g:`, minWidth: 1980 }
-  ],
-  colors: {
-    red: '#d41111',
-    blue: '#add8e6',
-    green: '#228B22'
-  },
-  typography: {
-    fonts: {
-      h1: "'Playfair Display', sans-serif",
-      h2: "'Playfair Display', sans-serif",
-      h3: "'Playfair Display', sans-serif",
-      h4: "'Playfair Display', sans-serif",
-      h5: "'Playfair Display', sans-serif",
-      h6: "'Playfair Display', sans-serif",
-      p: "'Roboto', serif",
-      a: "'Roboto', serif",
-      li: "'Roboto', serif",
-      span: "'Roboto', serif",
-      small: "'Roboto', serif"
-    },
-    sizes: {
-      h1: 't:|24px|, m:|36px|, l:|42px|',
-      h2: 't:|21px|, m:|32px|, l:|38px|',
-      h3: 't:|19px|, m:|28px|, l:|34px|',
-      h4: 't:|18px|, m:|26px|, l:|31px|',
-      h5: 't:|17px|, m:|22px|, l:|26px|',
-      h6: 't:|16px|, m:|19px|, l:|22px|',
-      p: 't:|16px|, m:|16px|, l:|16px|',
-      a: 't:|16px|, m:|16px|, l:|16px|',
-      li: 't:|16px|, m:|16px|, l:|16px|',
-      span: 't:|15px|, m:|15px|, l:|15px|',
-      small: 't:|12px|, m:|12px|, l:|12px|'
-    },
-    weights: {
-      h1: 't:|900|, m:|900|, l:|900|',
-      h2: 't:|900|, m:|900|, l:|900|',
-      h3: 't:|700|, m:|700|, l:|700|'
-    },
-    lines: {
-      h1: 1.35,
-      h2: 1.375,
-      h3: 1.4,
-      h4: 1.45,
-      h5: 1.475,
-      h6: 1.5,
-      p: 1.6,
-      a: 1.6,
-      li: 1.6,
-      span: 1.7,
-      small: 1.75
-    },
-    spaces: {
-      h1: 0.25,
-      h2: 0.2,
-      h3: 0.15,
-      h4: 0.1,
-      h5: 0.1,
-      h6: 0.1,
-      p: 0.25,
-      a: 0.25,
-      li: 0.25,
-      span: 0.3,
-      small: 0.35
-    }
-  }
-}
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import { ThemeProvider } from '@javascriptfox/modulox'
+import myAwesomeTheme from '<rootDir>/modulox.theme.js'
+
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider theme={myAwesomeTheme}>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+)
 ```
 
-**After generating and defining your own theme**
+Be careful to replace the path for theme <code><\\rootDir\>/modulox.theme.js</code>. This is just an illustrative example, and the path and name of your theme depend on your settings.
 
-Don't forget to open **modulox.components** and uncomment all lines to apply your theme! Then you need to import your components directly from this file.
+## API reference
 
-Default modulox.components file should look like this:
+_... Work in progress ..._
 
-```sh
-import { Box, Row, List, Text } from '@javascriptfox/modulox'
-import theme from './modulox.theme'
+## TODO
 
-const MX = {
-  Box: props => <Box theme={theme} {...props} />,
-  Row: props => <Row theme={theme} {...props} />,
-  List: props => <List theme={theme} {...props} />,
-  Text: props => <Text theme={theme} {...props} />
-}
-
-export default MX
-```
-
-Now you can import ModuloX components directly from this file:
-
-```sh
-import MX from './modulox.components';
-
-const { Box, Row, Text } = MX;
-
-const MyReactComponent = () => {
-	<Row>
-		<Box hover="border-bottom: 1px solid red;">
-			<Text space={0.5} transform="uppercase">Hello World!</Text>
-		</Box>
-		<Box display="t:|block|, m:|none|" background="red" width={50) height={50} />
-	</Row>
-}
-
-export default MyReactComponent;
-```
-
-Another option is to pass the theme down via Context API. This way, you don't need to create **modulox.components** file, just your theme. Then you can create ThemeProvider and pass down your theme.
-
-## Todo
-
-- [ ] Add more components (Link, Image, Icon...)
-- [ ] Add more flexibility customizing the theme
+- [ ] Documentation 😕
+- [ ] Add fields (Input, Select, Checkbox...)
+- [ ] Add components for quick scaffolding
 - [ ] Add animations properties
-- [ ] Add whatever useful that comes to my mind
 
 ## License
 

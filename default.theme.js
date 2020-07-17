@@ -1,9 +1,10 @@
 module.exports = {
   breakpoints: {
-    m: 0,
-    t: 769,
-    d: 1200,
-    g: 1980,
+    s: 0,
+    m: 576,
+		t: 768,
+		d: 992,
+		l: 1200,
   },
   colors: {
     red: '#d41111',
