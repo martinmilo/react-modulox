@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import blueprints from './blueprints';
 import { injectCSS } from '../../utils';
+import blueprints from '../blueprints';
 
-const injectCSSFn = injectCSS.bind(null, blueprints);
+const injectCSSFn = injectCSS.bind(null, blueprints.core);
 
 const Fragment = styled.div`
   ${injectCSSFn}

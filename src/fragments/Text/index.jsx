@@ -1,17 +1,20 @@
 import React from 'react';
 import Fragment from '../Base';
 import styled from 'styled-components';
-import blueprints from './blueprints';
 import { injectCSS } from '../../utils';
+import blueprints from '../blueprints';
 
-const injectCSSFn = injectCSS.bind(null, blueprints);
+const injectCoreCSSFn = injectCSS.bind(null, blueprints.core);
+const injectTextCSSFn = injectCSS.bind(null, blueprints.text);
 
-export const TextFragment = styled(Fragment)`
-  ${injectCSSFn}
+export const TextFragment = styled.span`
+	font-size: 100%;
+  font-family: inherit;
+
+  ${injectCoreCSSFn}
+	${injectTextCSSFn}
 `;
 
-const Text = ({ as, ...props }) => (
-  <TextFragment as={as || 'span'} {...props} />
-);
+const Text = TextFragment;
 
 export default Text;

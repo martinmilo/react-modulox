@@ -8,6 +8,18 @@ import defaultTheme from '../../../default.theme';
 import Text from './';
 
 describe('TextFragment', () => {
+  it('fall backs to the default values even when values are missing in theme', () => {
+    const tree = renderer
+      .create(
+        <ThemeProvider theme={{}}>
+          <Text />
+        </ThemeProvider>
+      )
+      .toJSON();
+    expect(tree).toHaveStyleRule('font-family', 'inherit');
+    expect(tree).toHaveStyleRule('font-size', '100%');
+  });
+
   it('renders default font size and font family', () => {
     const tree = renderer
       .create(

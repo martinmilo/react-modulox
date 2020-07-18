@@ -45,18 +45,27 @@ function deepGet(object, path) {
 function generateCSSProp(
   theme,
   value,
-  { key, cssKey, appendUnit, defaultValue, themePath }
+  {
+    key,
+    cssKey,
+    appendUnit,
+    themeValuePath,
+    defaultValuePath,
+    defaultValueFallback,
+  }
 ) {
   const finalKey = cssKey || key;
   const tempValue =
     // First, try to select the value from theme
-		deepGet(theme, themePath)?.[value] ||
-		// If theme value is not present, fallback to the value we passed down
+    deepGet(theme, themeValuePath)?.[value] ||
+    // If theme value is not present, fallback to the value we passed down
     value ||
-    // Otherwise set the defaultValue, either from theme or directly
-    (/\./.test(defaultValue) ? deepGet(theme, defaultValue) : defaultValue);
+    // Otherwise set the default value from theme or default value fallback
+    (defaultValuePath
+      ? deepGet(theme, defaultValuePath) || defaultValueFallback
+      : defaultValueFallback);
 
-	// On top of that, check if the appendUnit was set up to true and optionally append px to the value
+  // On top of that, check if the appendUnit was set up to true and optionally append px to the value
   const finalValue =
     appendUnit && typeof tempValue === 'number' ? `${tempValue}px` : tempValue;
 
@@ -80,23 +89,31 @@ export function injectCSS(blueprints, { theme, ...props }) {
 
   // Main loop starts here
   for (let i = blueprints.length; i--; ) {
-    const { key, cssKey, cssValue, themePath, defaultValue } = blueprints[i];
+    const {
+      key,
+      themeValuePath,
+      defaultValuePath,
+      defaultValueFallback,
+    } = blueprints[i];
 
-    const cssPropKey = cssKey || key;
     let value = props[key];
 
     // No value or default value defined, skip this property
-    if (!value && !defaultValue) continue;
+    if (!value && !defaultValuePath && !defaultValueFallback) continue;
 
     // This property is just a shorthand (i.e. assign directly and continue)
     if (value && typeof value === 'boolean') {
-      css += `${cssPropKey}: ${cssValue};`;
+      const { cssProp, cssKey, cssValue } = blueprints[i];
+      // Some shorthands have multiple properties, in which case we just use cssProp where they are defined
+      css += cssProp ? cssProp : `${cssKey || key}: ${cssValue};`;
       continue;
     }
 
     // Retrieve the theme value or default theme value, so we can check if it's using brekpoint style syntax
     const themeValue =
-      deepGet(theme, themePath)?.[value] || deepGet(theme, defaultValue);
+      deepGet(theme, themeValuePath)?.[value] ||
+      deepGet(theme, defaultValuePath) ||
+      defaultValueFallback;
 
     // This property is using breakpoint styles
     if (/\:\|/.test(themeValue || value)) {

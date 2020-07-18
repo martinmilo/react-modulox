@@ -4,6 +4,7 @@
   "description": "Core building blocks for your UI in React.",
   "main": "lib/bundle.js",
   "scripts": {
+    "docs": "NODE_ENV=development BABEL_ENV=development npx babel-node --presets react-app docs.js",
     "test": "jest",
     "start": "webpack --mode development",
     "build": "webpack --mode production",
@@ -31,6 +32,8 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
     "@babel/plugin-proposal-do-expressions": "^7.8.3",
     "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@babel/plugin-transform-classes": "^7.9.2",

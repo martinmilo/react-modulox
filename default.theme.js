@@ -18,9 +18,9 @@ module.exports = {
 			playfair: "'Playfair Display', serif",
 		},
 		fontSizes: {
-			1: 'm:|2.25rem| d:|3rem|',
-			2: 'm:|2rem| d:|2.5rem|',
-			3: 'm:|1.75rem| d:|2rem|',
+			1: 's:|2.25rem| d:|3rem|',
+			2: 's:|2rem| d:|2.5rem|',
+			3: 's:|1.75rem| d:|2rem|',
 			4: '1.5rem',
 			5: '1.25rem',
 			6: '1rem',

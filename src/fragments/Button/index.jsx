@@ -1,9 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TextFragment } from '../Text';
+import { injectCSS } from '../../utils';
+import blueprints from '../blueprints';
 
-const ButtonFragment = TextFragment;
+const injectCoreCSSFn = injectCSS.bind(null, blueprints.core);
+const injectTextCSSFn = injectCSS.bind(null, blueprints.text);
 
-const Button = props => <ButtonFragment as="button" {...props} />;
+export const ButtonFragment = styled.button`
+	font-size: 100%;
+  font-family: inherit;
+  margin: 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+
+  ${injectCoreCSSFn}
+	${injectTextCSSFn}
+`;
+
+const Button = ButtonFragment;
 
 export default Button;

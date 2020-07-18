@@ -7,11 +7,17 @@ import ThemeProvider from '../../services/theme';
 import Fragment from './';
 
 describe('BaseFragment', () => {
-  it('renders with initial style rules', () => {
-    const tree = renderer.create(<Fragment />).toJSON();
-    expect(tree).toHaveStyleRule('display', 'block');
+	it('renders correct styles from shorthand', () => {
+    const tree = renderer.create(<Fragment row />).toJSON();
+		expect(tree).toHaveStyleRule('display', 'flex');
+		expect(tree).toHaveStyleRule('flex-direction', 'row');
   });
 
+  it('render and set the props', () => {
+    const component = mount(<Fragment align="left" />);
+    expect(component.first().prop('align')).toBe('left');
+	});
+	
   it('renders with correct style properties from theme', () => {
     const tree = renderer
       .create(
@@ -22,16 +28,6 @@ describe('BaseFragment', () => {
       .toJSON();
     expect(tree).toHaveStyleRule('width', '200px');
     expect(tree).toHaveStyleRule('background', 'wine');
-  });
-
-  it('renders with proper style properties', () => {
-    const tree = renderer.create(<Fragment flex />).toJSON();
-    expect(tree).toHaveStyleRule('display', 'flex');
-  });
-
-  it('render and set the props', () => {
-    const component = mount(<Fragment align="left" />);
-    expect(component.first().prop('align')).toBe('left');
   });
 
   it('render and the children HTML elements', () => {

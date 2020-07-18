@@ -1,15 +1,14 @@
 import { injectCSS } from './';
-import baseBlueprints from '../fragments/Base/blueprints';
-import textBlueprints from '../fragments/Text/blueprints';
 import defaultTheme from '../../default.theme';
+import blueprints from '../fragments/blueprints';
 
-describe('Test injextCSS with Base Fragment blueprints', () => {
+describe('Test injextCSS with core blueprints', () => {
   const injectCSSFn = props =>
-    injectCSS(baseBlueprints, { theme: defaultTheme, ...props });
+    injectCSS(blueprints.core, { theme: defaultTheme, ...props });
 
   it('should return correct CSS styles', () => {
     const injectedCSS = injectCSSFn({
-      flex: true,
+      row: true,
       width: '100%',
       margin: 5,
       styles: 'transition: 125ms;',
@@ -42,7 +41,7 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
   });
 
   it('should override value with shorthand', () => {
-    const injectedCSS = injectCSSFn({ flex: true, display: 'block' });
+    const injectedCSS = injectCSSFn({ row: true, display: 'block' });
 
     expect(injectedCSS).toContain('display: flex;');
   });
@@ -58,11 +57,11 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
   describe('when using breakpoint style syntax', () => {
     it('should return styles with correct media queries', () => {
       const injectedCSS = injectCSSFn({
-        padding: 'm:|10px| d:|20px|',
+        padding: 's:|10px| d:|20px|',
       });
 
       [
-        '@media (min-width: 1200px) { padding: 20px; }',
+        '@media (min-width: 992px) { padding: 20px; }',
         'padding: 10px;',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
@@ -80,11 +79,11 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
 
     it('should select theme value', () => {
       const injectedCSS = injectCSSFn({
-        color: 'm:|red| d:|blue|',
+        color: 's:|red| d:|blue|',
       });
 
       [
-        '@media (min-width: 1200px) { color: #add8e6; }',
+        '@media (min-width: 992px) { color: #add8e6; }',
         'color: #d41111;',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
@@ -93,11 +92,11 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
 
     it('should return gaps for each breakpoint', () => {
       const injectedCSS = injectCSSFn({
-        gapHorizontal: 'm:|5px| d:|15px|',
+        gapHorizontal: 's:|5px| d:|15px|',
       });
 
       [
-        '@media (min-width: 1200px) { > *:not(:last-child) { margin-right: 15px; } }',
+        '@media (min-width: 992px) { > *:not(:last-child) { margin-right: 15px; } }',
         '> *:not(:last-child) { margin-right: 5px; }',
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
@@ -106,9 +105,9 @@ describe('Test injextCSS with Base Fragment blueprints', () => {
   });
 });
 
-describe('Test injextCSS with Text Fragment blueprints', () => {
+describe('Test injextCSS with text blueprints', () => {
   const injectCSSFn = props =>
-    injectCSS(textBlueprints, { theme: defaultTheme, ...props });
+    injectCSS(blueprints.text, { theme: defaultTheme, ...props });
 
   it('should select correct default font family value from theme', () => {
     const injectedCSS = injectCSSFn();
@@ -117,11 +116,11 @@ describe('Test injextCSS with Text Fragment blueprints', () => {
   });
 
   it('should set correct breakpoint styles even when BSS (breakpoint style syntax) is used in theme', () => {
-    // Expectation from theme file = m:|2.25rem| d:|3rem|
+    // Expectation from theme file = s:|2.25rem| d:|3rem|
     const injectedCSS = injectCSSFn({ size: 1 });
 
     [
-      '@media (min-width: 1200px) { font-size: 3rem; }',
+      '@media (min-width: 992px) { font-size: 3rem; }',
       'font-size: 2.25rem;',
     ].forEach(cssProp => {
       expect(injectedCSS).toContain(cssProp);
