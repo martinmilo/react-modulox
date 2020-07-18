@@ -137,44 +137,41 @@ All Fragments, i.e., <code>Div</code>, <code>Text</code>, <code>Button</code>, <
 
 ### Core API - Any Fragment can accept all these props
 
-Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value
---- | --- | --- | --- | --- | ---
-`display` | display | - | - | - | -
-`direction` | flex-direction | - | - | - | -
-`align` | align-items | - | - | - | -
-`justify` | justify-content | - | - | - | -
-`margin` | margin | px | - | - | -
-`padding` | padding | px | - | - | -
-`width` | width | px | - | - | -
-`height` | height | px | - | - | -
-`maxWidth` | max-width | px | - | - | -
-`maxHeight` | max-height | px | - | - | -
-`minWidth` | min-width | px | - | - | -
-`minHeight` | min-height | px | - | - | -
-`background` | background | - | colors | - | -
-`color` | color | - | colors | - | -
-`position` | position | - | - | - | -
-`cursor` | cursor | - | - | - | -
-`gapVertical*` | margin-bottom | px | gaps.vertical | - | -
-`gapHorizontal*` | margin-right | px | gaps.horizontal | - | -
+Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value--- | --- | --- | --- | --- | ---`display` | display | - | - | - | -`direction` | flex-direction | - | - | - | -`align` | align-items | - | - | - | -`justify` | justify-content | - | - | - | -`margin` | margin | px | - | - | -`padding` | padding | px | - | - | -`width` | width | px | - | - | -`height` | height | px | - | - | -`maxWidth` | max-width | px | - | - | -`maxHeight` | max-height | px | - | - | -`minWidth` | min-width | px | - | - | -`minHeight` | min-height | px | - | - | -`background` | background | - | _colors_ | - | -`color` | color | - | _colors_ | - | -`position` | position | - | - | - | -`cursor` | cursor | - | - | - | -`gapVertical*` | margin-bottom | px | _gaps.vertical_ | - | -`gapHorizontal*` | margin-right | px | _gaps.horizontal_ | - | -
 
 As you can see, most of the prop keys reflect the CSS keys. Some of them omitted the unnecessary parts, so we can keep the props short and clean. You can check the CSS key to be sure what will be the output of passed prop.
+
+There's an extra prop you can pass down called <code>styles</code>, which takes a raw CSS string and generates styles out of it. Beware that if you, for example, specify width with prop and then specify a width in <code>styles</code> prop as well, the latter one will be used.
+
+#### Example usage:
+```sh
+<Div width={200} background="greyDark" position="relative">
+	<Div width={15} height={15} position="absolute" styles="top: 5px; left: 5px;" background="red" />
+	<Div width="100%" maxWidth={500} display="m:|none| d:|block|" />
+</Div>
+```
 
 So what is <code>appendUnit</code>, <code>themePath</code>, and <code>defaultValue</code>? These are just extra information used internally to generate more sophisticated styles and fallback to the theme or default values. For instance, the <code>background</code> prop mirrors the CSS background property, and since we always expect the string to be passed, we don't need to append <code>px</code> to the end. We don't want to fall back to any <code>defaultValue</code>, but we want to select a variable from the theme if present. In this case, if you pass down the prop like this - <code>background="red"</code> we will first check the <code>colors</code> in theme, and if the red is not specified there, we use it directly. If you specified the red in theme to be <code>#d41111</code>, that value would be used instead.
 
 TLDR; the only relevant thing for you is to know which prop mirrors the specific CSS property. Extra information there is just for you to know what's going on internally. There's no way to change this setup at this moment, but you can customize your theme as you please.
 
-* There are also two extra properties called <code>gapHorizontal</code> and <code>gapVertical</code>, which may confuse you since you probably haven't used anything like that in CSS. These are a bit special ones - they don't apply the style directly on the Fragment to which you've passed these props, rather on all children except the last one. For instance, if you have a row with three children and have consistent gaps between them, you can pass down the <code>gapHorizontal="10px"</code> and see that each child except the last one has now <code>margin-right: 10px;</code>. Pretty cool, isn't it? Bonus - you can set variables for gaps in theme, so all the gaps across your app are consistent, and you don't hardcode values.
+There are also two extra properties called <code>gapHorizontal</code> and <code>gapVertical</code>, which may confuse you since you probably haven't used anything like that in CSS. These are a bit special ones - they don't apply the style directly on the Fragment to which you've passed these props, rather on all children except the last one. For instance, if you have a row with three children and have consistent gaps between them, you can pass down the <code>gapHorizontal="10px"</code> and see that each child except the last one has now <code>margin-right: 10px;</code>. Pretty cool, isn't it? Bonus - you can set variables for gaps in theme, so all the gaps across your app are consistent, and you don't hardcode values.
 
 Now, the Core API also makes use of shorthand props, which are just booleans. You can pass these props to any Fragment:
 
-Prop | CSS value
---- | ---
-`row` | display: flex; flex-direction: row;
-`column` | display: flex; flex-direction: column;
-`hidden` | display: none;
+Prop | CSS output--- | ---`row` | display: flex; flex-direction: row;`column` | display: flex; flex-direction: column;`hidden` | display: none;
 
-As you can see, I only specified the prop key and the CSS output. Since they are just booleans, you can pass them like so <code><Div row>...</code>, and both display and flex-direction properties will be generated. The purpose of these shorthands is to reduce the props that are repeated over and over.
+
+As you can see, I only specified the prop key and the CSS output. Since they are just booleans, you can pass them like this:
+
+```sh
+<Div row>
+	<Div>Now I</Div>
+	<Div>will be in a row with me.</Div>
+</Div>
+```
+
+To put it simply, both display and flex-direction properties will be generated. The purpose of these shorthands is to reduce the props that are repeated over and over.
 
 ### Div
 
@@ -186,9 +183,9 @@ This Fragment does not extend the Core API, so only the props specified in the r
 
 List Fragment is a tiny non-style extension to the Div. It requires these two props:
 
-..* <code>data</code> as either <code>Array</code> or <code>Object</code>
+* <code>data</code> as either <code>Array</code> or <code>Object</code>
+* <code>children</code> as a <code>Function</code>
 
-..* <code>children</code> as a <code>Function</code>
 The example usage of the List is following:
 
 ```sh
@@ -209,23 +206,11 @@ As you can see, it's just a tiny helper for you to map things, and make it a bit
 
 Text Fragment is an extension of Core API and comes with another set of props you can pass down on top of what you can pass to Div.
 
-Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value
---- | --- | --- | --- | --- | ---
-`font` | font-family | - | typography.fontFamilies | typography.defaultFontFamily | inherit
-`size` | font-size | px | typography.fontSizes | typography.defaultFontSize | 100%
-`weight` | font-weight | - | - | - | -
-`space` | white-space | - | - | - | -
-`letterSpacing` | letter-spacing | px | - | - | -
-`lineHeight` | line-height | - | - | - | -
+Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value--- | --- | --- | --- | --- | ---`font` | font-family | - | _typography.fontFamilies_ | _typography.defaultFontFamily_ | inherit`size` | font-size | px | _typography.fontSizes_ | _typography.defaultFontSize_ | 100%`weight` | font-weight | - | - | - | -`space` | white-space | - | - | - | -`letterSpacing` | letter-spacing | px | - | - | -`lineHeight` | line-height | - | - | - | -
 
 The default values for <code>font-family</code> and <code>font-size</code> fallbacks to the theme, and if these are not specified, they fallback to <code>inherit</code> and <code>100%</code> respectively. You can also specify a variety of fonts and sizes to pass down a variable representing a specific font family or font size. Stay consistent.
 
-Prop | CSS value
---- | ---
-`uppercase` | text-transform: uppercase;
-`underline` | text-decoration: underline;
-`center` | text-align: center;
-`block` | display: block;
+Prop | CSS output--- | ---`uppercase` | text-transform: uppercase;`underline` | text-decoration: underline;`center` | text-align: center;`block` | display: block;
 
 ### Button
 
