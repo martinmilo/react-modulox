@@ -2,30 +2,35 @@ module.exports = {
   breakpoints: {
     s: 0,
     m: 576,
-		t: 768,
-		d: 992,
-		l: 1200,
+    t: 768,
+    d: 992,
+    l: 1200,
   },
   colors: {
+    white: '#fbfbfb',
+    black: '#121212',
     red: '#d41111',
     blue: '#add8e6',
     green: '#228B22',
   },
   typography: {
     defaultFontFamily: "'Roboto', serif",
-		defaultFontSize: '1rem',
-		fontFamilies: {
-			playfair: "'Playfair Display', serif",
-		},
-		fontSizes: {
-			1: 's:|2.25rem| d:|3rem|',
-			2: 's:|2rem| d:|2.5rem|',
-			3: 's:|1.75rem| d:|2rem|',
-			4: '1.5rem',
-			5: '1.25rem',
-			6: '1rem',
-			7: '0.75rem',
-		},
+    defaultFontSize: '1rem',
+    fontFamilies: {
+      roboto: "'Roboto', serif",
+      playfair: "'Playfair Display', serif",
+    },
+    fontSizes: {
+      1: 's:|2.25rem| d:|3rem|',
+      2: 's:|2rem| d:|2.5rem|',
+      3: 's:|1.75rem| d:|2rem|',
+      4: '1.5rem',
+      5: '1.25rem',
+      6: '1rem',
+      7: '0.9rem',
+      8: '0.825rem',
+      9: '0.75rem',
+    },
   },
   gaps: {
     vertical: {

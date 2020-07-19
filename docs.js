@@ -73,7 +73,7 @@ let apiReference = '';
 // Intro to the API reference
 apiReference += `## API reference\n\nAll Fragments, i.e., <code>Div</code>, <code>Text</code>, <code>Button</code>, <code>List</code>, share the same core API. Some of them have extended functionality or can receive another set of props, but let's look at the core API that is common across all of them.\n\n`;
 // Core API reference
-apiReference += `### Core API - Any Fragment can accept all these props\n\n${apiCoreReference.default}\n\nAs you can see, most of the prop keys reflect the CSS keys. Some of them omitted the unnecessary parts, so we can keep the props short and clean. You can check the CSS key to be sure what will be the output of passed prop.\n
+apiReference += `### Core API - Any Fragment can accept these props (see the first column)\n\n${apiCoreReference.default}\n\nAs you can see, most of the prop keys reflect the CSS keys. Some of them omitted the unnecessary parts, so we can keep the props short and clean. You can check the CSS key to be sure what will be the output of passed prop.\n
 There's an extra prop you can pass down called <code>styles</code>, which takes a raw CSS string and generates styles out of it. Beware that if you, for example, specify width with prop and then specify a width in <code>styles</code> prop as well, the latter one will be used.\n
 #### Example usage:
 \`\`\`sh
@@ -128,6 +128,7 @@ margin: 0;
 padding: 8px 14px;
 border: none;
 border-radius: 4px;
+cursor: pointer || not-allowed; // By default pointer, not-allowed in case we pass down disabled flag
 \`\`\`\n
 If the font-family and font-size are not specified, the fallback values for both are the same as in the case of Text Fragment.\n`;
 // Attach header for the next part

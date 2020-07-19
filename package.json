@@ -1,6 +1,6 @@
 {
-  "name": "@javascriptfox/modulox",
-  "version": "1.1.4",
+  "name": "@martinmilo/react-modulox",
+  "version": "1.0.0",
   "description": "Core building blocks for your UI in React.",
   "main": "lib/bundle.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JavascriptFox/modulox.git"
+    "url": "git+https://github.com/martinmilo/react-modulox.git"
   },
   "keywords": [
     "react",
@@ -29,7 +29,8 @@
   },
   "peerDependencies": {
     "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "react-dom": ">= 16.8.0",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

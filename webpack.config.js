@@ -22,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     alias: {
-      modulox: path.resolve('./node_modules/@javascriptfox/modulox'),
+      modulox: path.resolve('./node_modules/@martinmilo/react-modulox'),
     },
   },
   module: {
@@ -86,6 +86,8 @@ module.exports = {
     fs: 'empty',
   },
   externals: {
-    react: 'commonjs react',
+    react: 'react',
+    'react-dom': 'react-dom',
+    'styled-components': 'styled-components',
   },
 };

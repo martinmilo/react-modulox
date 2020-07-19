@@ -1,5 +1,5 @@
-import ThemeProvider, { useTheme } from "./services/theme";
-import Fragments, { Div, Text, Button, List } from "./fragments";
+import ThemeProvider, { useTheme } from './services/theme';
+import Fragments, { Div, Text, Button, List } from './fragments';
 
 export {
   // Theme
@@ -9,6 +9,6 @@ export {
   Fragments,
   Div,
   Text,
-	Button,
-	List,
+  Button,
+  List
 };

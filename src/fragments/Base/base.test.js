@@ -8,7 +8,7 @@ import Fragment from './';
 
 describe('BaseFragment', () => {
 	it('renders correct styles from shorthand', () => {
-    const tree = renderer.create(<Fragment row />).toJSON();
+		const tree = renderer.create(<Fragment row />).toJSON();
 		expect(tree).toHaveStyleRule('display', 'flex');
 		expect(tree).toHaveStyleRule('flex-direction', 'row');
   });
