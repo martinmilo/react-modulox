@@ -26,7 +26,7 @@ npm install @martinmilo/react-modulox --save-dev
 yarn add @martinmilo/react-modulox --dev
 ```
 
-Although React ModuloX has <code>styled-components<code> listed in peerDependencies, you don't have to install them for your project. I highly recommend doing that since it gives you tremendous flexibility when creating your own styled-components. Other than that, you should be using <code>react</code> and <code>react-dom</code>, which is obvious for this library. 😀
+Although React ModuloX has <code>styled-components</code> listed in peerDependencies, you don't have to install them for your project. I highly recommend doing that since it gives you tremendous flexibility when creating your own styled-components. Other than that, you should be using <code>react</code> and <code>react-dom</code>, which is obvious for this library. 😀
 
 There's one catch, though. You have to make sure that you're using only one instance of React. If you're using CRA (Create React App), you're good to go (under the hood, they are already aliasing react); if you have some custom setup and using <code>webpack</code>, you have to add alias like so:
 
