@@ -1,6 +1,6 @@
 {
   "name": "@martinmilo/react-modulox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core building blocks for your UI in React.",
   "main": "lib/bundle.js",
   "scripts": {
