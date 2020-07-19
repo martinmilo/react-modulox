@@ -74,5 +74,5 @@ describe('TextFragment', () => {
       </Text>
     );
     expect(component.contains(<div className="test">Test</div>)).toBe(true);
-  });
+	});
 });

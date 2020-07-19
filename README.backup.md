@@ -26,6 +26,27 @@ npm install @martinmilo/react-modulox --save-dev
 yarn add @martinmilo/react-modulox --dev
 ```
 
+Although React ModuloX has <code>styled-components</code> listed in peerDependencies, you don't have to install them for your project. I highly recommend doing that since it gives you tremendous flexibility when creating your own styled-components. Other than that, you should be using <code>react</code> and <code>react-dom</code>, which is obvious for this library. 😀
+
+There's one catch, though. You have to make sure that you're using only one instance of React. If you're using CRA (Create React App), you're good to go (under the hood, they are already aliasing react); if you have some custom setup and using <code>webpack</code>, you have to add alias like so:
+
+```sh
+const path = require('path');
+
+// This is your webpack configuration - look for webpack.config.js
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      react: path.resolve('./node_modules/react'), // If your webpack.config.js is in different folder than node_modules, you have to adjust this path accordingly
+    }
+  }
+  // ...
+}
+```
+
+I'll look at other configurations, but if you have a problem making this running with some specific setup, please let me know, and I'll see what I can do. Also guys, if anyone knows a better way to handle this issue more elegantly, I'm all ears! 🙌
+
 ## Prerequisites
 
 React ModuloX does not need any setup, but to use all features (especially breakpoint style syntax), you have to wrap your App in ThemeProvider.
@@ -60,7 +81,7 @@ Let's look at a very basic example to give you an overview of how it looks. I'm 
 import { Div } from '@martinmilo/react-modulox'
 
 const App = () => (
-	<Div width="s:|100%| d:|875px|" background="greyLight" direction="column" flex>
+	<Div width="s:|100%| d:|875px|" background="greyLight" display="flex" direction="column">
 		I'm inside the Fragment!
 	</Div>
 )

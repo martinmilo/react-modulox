@@ -52,7 +52,13 @@ describe('Test injextCSS with core blueprints', () => {
     expect(injectedCSS).toContain(
       '> *:not(:last-child) { margin-right: 1.5rem; }'
     );
-  });
+	});
+	
+	it('should return hover styles with values from theme', () => {
+		const injectedCSS = injectCSSFn({ color: 'red', hover: 'color: blue; width: 200;' });
+
+		expect(injectedCSS).toContain('color: #d41111; :hover { width: 200px;color: #add8e6; }');
+	})
 
   describe('when using breakpoint style syntax', () => {
     it('should return styles with correct media queries', () => {
@@ -125,5 +131,5 @@ describe('Test injextCSS with text blueprints', () => {
     ].forEach(cssProp => {
       expect(injectedCSS).toContain(cssProp);
     });
-  });
+	});
 });

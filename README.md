@@ -8,7 +8,7 @@
     <a href="https://github.com/martinmilo/react-modulox/blob/master/LICENSE"><img src="https://img.shields.io/github/license/martinmilo/react-modulox.svg?colorB=blue" alt="License"></a>
 </p>
 
-React ModuloX is a tiny, unopinionated UI library whose primary goal is to provide core building blocks for your React application. These blocks give you very intuitive API to handle complex theming and styling for various screen sizes.
+React ModuloX is a tiny UI library whose primary goal is to provide core building blocks for your React application. These blocks give you very intuitive API to handle complex theming and styling for various screen sizes.
 
 ## Why?
 
@@ -26,7 +26,7 @@ npm install @martinmilo/react-modulox --save-dev
 yarn add @martinmilo/react-modulox --dev
 ```
 
-Although React ModuloX has <code>styled-components</code> listed in peerDependencies, you don't have to install them for your project. I highly recommend doing that since it gives you tremendous flexibility when creating your own styled-components. Other than that, you should be using <code>react</code> and <code>react-dom</code>, which is obvious for this library. 😀
+Although React ModuloX has <code>styled-components</code> listed in peerDependencies, you don't have to install them for your project. I highly recommend doing that since it gives you tremendous flexibility when creating your own styled-components. Other than that, you obviously need <code>react</code> and <code>react-dom</code>, as this library only works with React.
 
 There's one catch, though. You have to make sure that you're using only one instance of React. If you're using CRA (Create React App), you're good to go (under the hood, they are already aliasing react); if you have some custom setup and using <code>webpack</code>, you have to add alias like so:
 
@@ -73,7 +73,7 @@ With this setup, you're basically good to go! 🚀
 
 ## Getting started
 
-Core building blocks, called **Fragments**, are the backbone of React ModuloX. Under the hood, React ModuloX uses a powerful library <a href="https://styled-components.com/">styled-components</a>, which I definitely recommend to check out, and give it a shot. The fragments are nothing more than just styled-components with a simple config called blueprints - these serve as middleware between passed props and the styled-component, and transform certain props to more sophisticated styles.
+Core building blocks, called **Fragments**, are the backbone of React ModuloX. Under the hood, React ModuloX uses a powerful library <a href="https://styled-components.com/">styled-components</a>, which I definitely recommend to check out, and give it a shot. Fragments are nothing more than just styled-components with a simple config called blueprints - these serve as middleware between passed props and the styled-component, and transform certain props to more sophisticated styles.
 
 Let's look at a very basic example to give you an overview of how it looks. I'm importing a <code>Div</code> and trying to make it with fixed-width on desktop devices (breakpoints are adjustable in theme), but I also want it to have 100% width on mobile devices. I want this <code>Div</code> to be slightly grey-ish, and use the variable I specified in my theme. Finally, I want this to use flexbox layout as a column because later on, I'll add more children components to this.
 
@@ -81,7 +81,7 @@ Let's look at a very basic example to give you an overview of how it looks. I'm 
 import { Div } from '@martinmilo/react-modulox'
 
 const App = () => (
-	<Div width="s:|100%| d:|875px|" background="greyLight" direction="column" flex>
+	<Div width="s:|100%| d:|875px|" background="greyLight" display="flex" direction="column">
 		I'm inside the Fragment!
 	</Div>
 )
@@ -97,7 +97,7 @@ This is called breakpoint style syntax, and it allows you to pass simple string 
 
 By default, you don't have to set up your own theme if you don't want to, but I highly recommend you do so. You can check out below in the Theming section how to quickly generate your theme file from a terminal, so you don't have to copy & paste the whole theme file from here manually.
 
-This is how the part of the theme with breakpoints config looks like:
+**This is how the part of the theme with breakpoints config looks like:**
 
 ```sh
 breakpoints: {
@@ -138,7 +138,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { ThemeProvider } from '@martinmilo/react-modulox'
-import myAwesomeTheme from '<rootDir>/modulox.theme.js'
+import myAwesomeTheme from '$rootDir/modulox.theme.js'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -150,60 +150,47 @@ ReactDOM.render(
 )
 ```
 
-Be careful to replace the path for theme <code>\\<\rootDir\>/modulox.theme.js</code>. This is just an illustrative example, and the path and name of your theme depend on your settings.
+Be careful to replace the path for theme <code>$rootDir/modulox.theme.js</code>. This is just an illustrative example, and the path and name of your theme depend on your folder structure and naming.
 
 ## API reference
 
 All Fragments, i.e., <code>Div</code>, <code>Text</code>, <code>Button</code>, <code>List</code>, share the same core API. Some of them have extended functionality or can receive another set of props, but let's look at the core API that is common across all of them.
 
-### Core API - Any Fragment can accept all these props
+### Core API - Any Fragment can accept these props (see the first column)
 
-Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value
---- | --- | --- | --- | --- | ---
-`display` | display | - | - | - | -
-`direction` | flex-direction | - | - | - | -
-`align` | align-items | - | - | - | -
-`justify` | justify-content | - | - | - | -
-`margin` | margin | px | - | - | -
-`padding` | padding | px | - | - | -
-`width` | width | px | - | - | -
-`height` | height | px | - | - | -
-`maxWidth` | max-width | px | - | - | -
-`maxHeight` | max-height | px | - | - | -
-`minWidth` | min-width | px | - | - | -
-`minHeight` | min-height | px | - | - | -
-`background` | background | - | _colors_ | - | -
-`color` | color | - | _colors_ | - | -
-`position` | position | - | - | - | -
-`cursor` | cursor | - | - | - | -
-`gapVertical*` | margin-bottom | px | _gaps.vertical_ | - | -
-`gapHorizontal*` | margin-right | px | _gaps.horizontal_ | - | -
+Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value--- | --- | --- | --- | --- | ---`display` | display | - | - | - | -`direction` | flex-direction | - | - | - | -`align` | align-items | - | - | - | -`justify` | justify-content | - | - | - | -`margin` | margin | px | - | - | -`padding` | padding | px | - | - | -`width` | width | px | - | - | -`height` | height | px | - | - | -`maxWidth` | max-width | px | - | - | -`maxHeight` | max-height | px | - | - | -`minWidth` | min-width | px | - | - | -`minHeight` | min-height | px | - | - | -`background` | background | - | _colors_ | - | -`color` | color | - | _colors_ | - | -`position` | position | - | - | - | -`cursor` | cursor | - | - | - | -`gapVertical*` | margin-bottom | px | _gaps.vertical_ | - | -`gapHorizontal*` | margin-right | px | _gaps.horizontal_ | - | -
 
 As you can see, most of the prop keys reflect the CSS keys. Some of them omitted the unnecessary parts, so we can keep the props short and clean. You can check the CSS key to be sure what will be the output of passed prop.
 
-There's an extra prop you can pass down called <code>styles</code>, which takes a raw CSS string and generates styles out of it. Beware that if you, for example, specify width with prop and then specify a width in <code>styles</code> prop as well, the latter one will be used.
+#### Extra props
+
+Prop | CSS output--- | ---
+<code>styles</code> | *css string you pass down*
+<code>hover</code> | *css string you pass down*
+
+Extra props accept the CSS string with multiple values that have to be separated by <code>;</code>. Beware that if you, for example, specify width with prop and then specify a width in <code>styles</code> prop as well, the latter one will be used.
 
 #### Example usage:
 ```sh
 <Div width={200} background="greyDark" position="relative">
-	<Div width={15} height={15} position="absolute" styles="top: 5px; left: 5px;" background="red" />
+	<Div width={15} height={15} position="absolute" background="red" styles="color: red; top: 5px; left: 5px;" />
 	<Div width="100%" maxWidth={500} display="m:|none| d:|block|" />
 </Div>
 ```
 
 So what is <code>appendUnit</code>, <code>themePath</code>, and <code>defaultValue</code>? These are just extra information used internally to generate more sophisticated styles and fallback to the theme or default values. For instance, the <code>background</code> prop mirrors the CSS background property, and since we always expect the string to be passed, we don't need to append <code>px</code> to the end. We don't want to fall back to any <code>defaultValue</code>, but we want to select a variable from the theme if present. In this case, if you pass down the prop like this - <code>background="red"</code> we will first check the <code>colors</code> in theme, and if the red is not specified there, we use it directly. If you specified the red in theme to be <code>#d41111</code>, that value would be used instead.
 
-TLDR; the only relevant thing for you is to know which prop mirrors the specific CSS property. Extra information there is just for you to know what's going on internally. There's no way to change this setup at this moment, but you can customize your theme as you please.
+Note that for <code>styles</code> and <code>hover</code>, we also try to parse the values from theme (so you can still make use of variables), but there's no way to use breakpoint style syntax in there now.
+
+**TLDR;** just check out which props you can pass down to the Fragments and see which CSS property will be generated out of it in the second column. The other columns represent the internal settings, and demonstrate what's going on behind the scene. There's no way to change this setup at this moment, but you can customize your theme as you please.
 
 There are also two extra properties called <code>gapHorizontal</code> and <code>gapVertical</code>, which may confuse you since you probably haven't used anything like that in CSS. These are a bit special ones - they don't apply the style directly on the Fragment to which you've passed these props, rather on all children except the last one. For instance, if you have a row with three children and have consistent gaps between them, you can pass down the <code>gapHorizontal="10px"</code> and see that each child except the last one has now <code>margin-right: 10px;</code>. Pretty cool, isn't it? Bonus - you can set variables for gaps in theme, so all the gaps across your app are consistent, and you don't hardcode values.
 
+#### Shorthand props
+
 Now, the Core API also makes use of shorthand props, which are just booleans. You can pass these props to any Fragment:
 
-Prop | CSS output
---- | ---
-`row` | display: flex; flex-direction: row;
-`column` | display: flex; flex-direction: column;
-`hidden` | display: none;
+Prop | CSS output--- | ---`row` | display: flex; flex-direction: row;`column` | display: flex; flex-direction: column;`hidden` | display: none;
 
 
 As you can see, I only specified the prop key and the CSS output. Since they are just booleans, you can pass them like this:
@@ -250,33 +237,26 @@ As you can see, it's just a tiny helper for you to map things, and make it a bit
 
 Text Fragment is an extension of Core API and comes with another set of props you can pass down on top of what you can pass to Div.
 
-Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value
---- | --- | --- | --- | --- | ---
-`font` | font-family | - | _typography.fontFamilies_ | _typography.defaultFontFamily_ | inherit
-`size` | font-size | px | _typography.fontSizes_ | _typography.defaultFontSize_ | 100%
-`weight` | font-weight | - | - | - | -
-`space` | white-space | - | - | - | -
-`letterSpacing` | letter-spacing | px | - | - | -
-`lineHeight` | line-height | - | - | - | -
+Prop | CSS key | Append unit | Theme value path | Default value path | Fallback value--- | --- | --- | --- | --- | ---`font` | font-family | - | _typography.fontFamilies_ | _typography.defaultFontFamily_ | inherit`size` | font-size | px | _typography.fontSizes_ | _typography.defaultFontSize_ | 100%`weight` | font-weight | - | - | - | -`space` | white-space | - | - | - | -`letterSpacing` | letter-spacing | px | - | - | -`lineHeight` | line-height | - | - | - | -
 
 The default values for <code>font-family</code> and <code>font-size</code> fallbacks to the theme, and if these are not specified, they fallback to <code>inherit</code> and <code>100%</code> respectively. You can also specify a variety of fonts and sizes to pass down a variable representing a specific font family or font size. Stay consistent.
 
-Prop | CSS output
---- | ---
-`uppercase` | text-transform: uppercase;
-`underline` | text-decoration: underline;
-`center` | text-align: center;
-`block` | display: block;
+#### Shorthand props
+
+Prop | CSS output--- | ---`uppercase` | text-transform: uppercase;`underline` | text-decoration: underline;`center` | text-align: center;`block` | display: block;
 
 ### Button
 
-Button Fragment is an extension of Core API in the same way as Text Fragment. On top of that, it comes with some default styles to make the button look like from the 21st century, and not like the button your grandad used to click on back in the 90s. The default styles are the following:
+Button Fragment is an extension of Core API in the same way as Text Fragment. **That means, you can use the same props as you could for Text Fragment (see the Text Fragment API reference above).**
+
+On top of that, it comes with some default styles to make the button look like from the 21st century, and not like the button your grandad used to click on back in the 90s. The default styles are the following:
 
 ```sh
 margin: 0;
 padding: 8px 14px;
 border: none;
 border-radius: 4px;
+cursor: pointer || not-allowed; // By default pointer, not-allowed in case we pass down disabled flag
 ```
 
 If the font-family and font-size are not specified, the fallback values for both are the same as in the case of Text Fragment.

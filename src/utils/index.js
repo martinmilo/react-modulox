@@ -55,7 +55,7 @@ function generateCSSProp(
   }
 ) {
   const finalKey = cssKey || key;
-  const tempValue =
+  let finalValue =
     // First, try to select the value from theme
     deepGet(theme, themeValuePath)?.[value] ||
     // If theme value is not present, fallback to the value we passed down
@@ -66,11 +66,43 @@ function generateCSSProp(
       : defaultValueFallback);
 
   // On top of that, check if the appendUnit was set up to true and optionally append px to the value
-  const finalValue =
-    appendUnit && typeof tempValue === 'number' ? `${tempValue}px` : tempValue;
+  // Also check if value consists of only digits, otherwise it already contains unit
+  if (appendUnit && /^\d+$/.test(finalValue)) {
+    const parsedValue = parseFloat(finalValue, 10);
+    // If parsed value is not NaN, append unit continue
+    if (!Number.isNaN(parsedValue)) finalValue = parsedValue + appendUnit;
+  }
 
   // Finally, return the complete css property with correct key and value
   return `${finalKey}: ${finalValue};`;
+}
+
+// Generate multiple css properties from a string
+// Example usage: styles & hover are passed as a string that contains multiple properties
+function generateMultipleCSSProps(
+  generateCSSPropFn,
+  blueprintsByKey,
+  cssString
+) {
+  let css = '';
+
+  const cssPropArr = cssString.split(';');
+  for (let i = cssPropArr.length; i--; ) {
+    const cssProp = cssPropArr[i];
+
+    if (!cssProp) continue;
+
+    const cssKeyValue = cssProp.split(':');
+    const key = cssKeyValue[0].trim();
+    const value = cssKeyValue[1].trim();
+
+    // If this key isn't defined in blueprints, let's assign it's value directly
+		if (!blueprintsByKey[key]) css += `${key}: ${value};`;
+		// Otherwise, select the blueprint from the map and adjust the value
+    else css += generateCSSPropFn(value, blueprintsByKey[key]);
+  }
+
+  return css;
 }
 
 // Inject CSS function iterates over all the props
@@ -97,6 +129,9 @@ export function injectCSS(blueprints, { theme, ...props }) {
     } = blueprints[i];
 
     let value = props[key];
+
+    // Skip if the property is styles or hover, which are appended at the end
+    if (['styles', 'hover'].includes(key)) continue;
 
     // No value or default value defined, skip this property
     if (!value && !defaultValuePath && !defaultValueFallback) continue;
@@ -187,8 +222,25 @@ export function injectCSS(blueprints, { theme, ...props }) {
     }${breakpointGaps ? ` ${breakpointGaps} ` : ''}}`;
   }
 
-  // Inject custom styles at the end of the css string if present
-  if (props.styles) css += props.styles;
+  // If styles or hover property is defined, let's make blueprints map to easily access specific blueprint by key
+  if (props.styles || props.hover) {
+    let blueprintsByKey = {};
+    for (let i = blueprints.length; i--; ) {
+      const blueprint = blueprints[i];
+      blueprintsByKey[blueprint.key] = blueprint;
+    }
+
+    // Bind the generate single CSS prop callback and the blueprintsByKey map
+    const generateMultipleCSSPropsFn = generateMultipleCSSProps.bind(
+      null,
+      generateCSSPropFn,
+      blueprintsByKey
+    );
+
+    if (props.styles) css += ` ${generateMultipleCSSPropsFn(props.styles)}`;
+    if (props.hover)
+      css += ` :hover { ${generateMultipleCSSPropsFn(props.hover)} }`;
+  }
 
   return css;
 }
