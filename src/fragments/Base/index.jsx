@@ -9,4 +9,6 @@ const Fragment = styled.div`
   ${injectCSSFn}
 `;
 
+Fragment.displayName = 'Div';
+
 export default Fragment;
