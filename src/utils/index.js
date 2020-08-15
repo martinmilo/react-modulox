@@ -97,8 +97,8 @@ function generateMultipleCSSProps(
     const value = cssKeyValue[1].trim();
 
     // If this key isn't defined in blueprints, let's assign it's value directly
-		if (!blueprintsByKey[key]) css += `${key}: ${value};`;
-		// Otherwise, select the blueprint from the map and adjust the value
+    if (!blueprintsByKey[key]) css += `${key}: ${value};`;
+    // Otherwise, select the blueprint from the map and adjust the value
     else css += generateCSSPropFn(value, blueprintsByKey[key]);
   }
 
@@ -144,11 +144,14 @@ export function injectCSS(blueprints, { theme, ...props }) {
       continue;
     }
 
-    // Retrieve the theme value or default theme value, so we can check if it's using brekpoint style syntax
-    const themeValue =
-      deepGet(theme, themeValuePath)?.[value] ||
-      deepGet(theme, defaultValuePath) ||
-      defaultValueFallback;
+		// Initialize theme value to be undefined
+		let themeValue = undefined;
+		// Only retrieve values from theme if the value is not using breakpoint style syntax
+    if (!/\:\|/.test(value))
+      themeValue =
+        deepGet(theme, themeValuePath)?.[value] ||
+        deepGet(theme, defaultValuePath) ||
+        defaultValueFallback;
 
     // This property is using breakpoint styles
     if (/\:\|/.test(themeValue || value)) {
