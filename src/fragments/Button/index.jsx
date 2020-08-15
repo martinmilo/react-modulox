@@ -21,4 +21,6 @@ export const ButtonFragment = styled.button`
 
 const Button = ButtonFragment;
 
+Button.displayName = 'Button';
+
 export default Button;

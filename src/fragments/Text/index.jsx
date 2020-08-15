@@ -17,4 +17,6 @@ export const TextFragment = styled.span`
 
 const Text = TextFragment;
 
+Text.displayName = 'Text';
+
 export default Text;
