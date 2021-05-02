@@ -16,16 +16,16 @@ describe('when select is enabled', () => {
     <ThemeProvider>
       <Select options={options} onChange={jest.fn()} />
     </ThemeProvider>
-	);
-	const select = component.find('Select');
+  );
+  const select = component.find('Select');
 
   it('should render select element', () => {
     expect(select.find('select').exists()).toBe(true);
-	});
-	
-	it('should render 2 options', () => {
-		expect(select.find('option')).toHaveLength(2);
-	})
+  });
+
+  it('should render 2 options', () => {
+    expect(select.find('option')).toHaveLength(2);
+  })
 
   it('should call the onChange when changing the value', () => {
     select.prop('onChange')('123');
