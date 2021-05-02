@@ -74,8 +74,9 @@ function generateCSSProp(
     if (!Number.isNaN(parsedValue)) finalValue = parsedValue + appendUnit;
   }
 
-  // Additionally, check the theme if intended and if string contains '|'
+  // Additionally, check the theme if intended and if string contains '|' but not ':'
   if (checkTheme && /\|/.test(finalValue) && !/\:/.test(finalValue)) {
+    // Select all until first whitespace, example: "red|blue ..."
     const matchedThemedValues = finalValue.match(/^([^\s]+)/g);
 
     if (matchedThemedValues?.length) {
