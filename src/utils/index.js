@@ -49,6 +49,7 @@ function generateCSSProp(
     key,
     cssKey,
     appendUnit,
+    checkTheme,
     themeValuePath,
     defaultValuePath,
     defaultValueFallback,
@@ -73,6 +74,22 @@ function generateCSSProp(
     if (!Number.isNaN(parsedValue)) finalValue = parsedValue + appendUnit;
   }
 
+  // Additionally, check the theme if intended and if string contains '|' but not ':'
+  if (checkTheme && /\|/.test(finalValue) && !/\:/.test(finalValue)) {
+    // Select all until first whitespace, example: "red|blue ..."
+    const matchedThemedValues = finalValue.match(/^([^\s]+)/g);
+
+    if (matchedThemedValues?.length) {
+      const themedValues = matchedThemedValues[0].split('|');
+      const themedValue = theme.default
+        ? themedValues[0] // Default theme
+        : themedValues[1]; // Other theme
+
+      finalValue =
+        deepGet(theme, themeValuePath)?.[themedValue] || themedValue;
+    }
+  }
+
   // Finally, return the complete css property with correct key and value
   return `${finalKey}: ${finalValue};`;
 }
@@ -87,7 +104,7 @@ function generateMultipleCSSProps(
   let css = '';
 
   const cssPropArr = cssString.split(';');
-  for (let i = cssPropArr.length; i--; ) {
+  for (let i = cssPropArr.length; i--;) {
     const cssProp = cssPropArr[i];
 
     if (!cssProp) continue;
@@ -120,7 +137,7 @@ export function injectCSS(blueprints, { theme, ...props }) {
   const generateCSSPropFn = generateCSSProp.bind(null, theme);
 
   // Main loop starts here
-  for (let i = blueprints.length; i--; ) {
+  for (let i = blueprints.length; i--;) {
     const {
       key,
       themeValuePath,
@@ -144,9 +161,9 @@ export function injectCSS(blueprints, { theme, ...props }) {
       continue;
     }
 
-		// Initialize theme value to be undefined
-		let themeValue = undefined;
-		// Only retrieve values from theme if the value is not using breakpoint style syntax
+    // Initialize theme value to be undefined
+    let themeValue = undefined;
+    // Only retrieve values from theme if the value is not using breakpoint style syntax
     if (!/\:\|/.test(value))
       themeValue =
         deepGet(theme, themeValuePath)?.[value] ||
@@ -160,7 +177,7 @@ export function injectCSS(blueprints, { theme, ...props }) {
       const breakpointValues = (themeValue || value).split('|');
       // We iterate over breakpointValues, which is an array of ['m:', '100px', 'd:', '200px']
       // So we only care about odd values (to get a breakpoint key) & then in that iteration we get the value for it
-      for (let j = breakpointValues.length; j--; ) {
+      for (let j = breakpointValues.length; j--;) {
         const val = breakpointValues[j];
 
         // Skip if this is not breakpoint key, or is undefined
@@ -210,7 +227,7 @@ export function injectCSS(blueprints, { theme, ...props }) {
 
   // Iterate over breakpoints and append styles to the css string
   const cssBreakpointKeys = Object.keys(cssByBreakpoint);
-  for (let k = cssBreakpointKeys.length; k--; ) {
+  for (let k = cssBreakpointKeys.length; k--;) {
     const breakpointKey = cssBreakpointKeys[k];
 
     const breakpointStyles = cssByBreakpoint[breakpointKey] || '';
@@ -220,15 +237,14 @@ export function injectCSS(blueprints, { theme, ...props }) {
 
     if (!breakpointStyles && !breakpointGaps) continue;
 
-    css += `@media (min-width: ${theme.breakpoints[breakpointKey]}px) {${
-      breakpointStyles ? ` ${breakpointStyles} ` : ''
-    }${breakpointGaps ? ` ${breakpointGaps} ` : ''}}`;
+    css += `@media (min-width: ${theme.breakpoints[breakpointKey]}px) {${breakpointStyles ? ` ${breakpointStyles} ` : ''
+      }${breakpointGaps ? ` ${breakpointGaps} ` : ''}}`;
   }
 
   // If styles or hover property is defined, let's make blueprints map to easily access specific blueprint by key
   if (props.styles || props.hover) {
     let blueprintsByKey = {};
-    for (let i = blueprints.length; i--; ) {
+    for (let i = blueprints.length; i--;) {
       const blueprint = blueprints[i];
       blueprintsByKey[blueprint.key] = blueprint;
     }

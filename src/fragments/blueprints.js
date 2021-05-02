@@ -16,8 +16,8 @@ module.exports = {
     { key: 'maxHeight', cssKey: 'max-height', appendUnit: 'px' },
     { key: 'minWidth', cssKey: 'min-width', appendUnit: 'px' },
     { key: 'minHeight', cssKey: 'min-height', appendUnit: 'px' },
-    { key: 'background', themeValuePath: 'colors' },
-    { key: 'color', themeValuePath: 'colors' },
+    { key: 'background', themeValuePath: 'colors', checkTheme: true },
+    { key: 'color', themeValuePath: 'colors', checkTheme: true },
     { key: 'position' },
     { key: 'cursor' },
     {
