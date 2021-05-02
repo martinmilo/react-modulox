@@ -1,4 +1,5 @@
 module.exports = {
+  default: true,
   breakpoints: {
     s: 0,
     m: 576,

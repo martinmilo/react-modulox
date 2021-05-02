@@ -3,8 +3,10 @@ import defaultTheme from '../../default.theme';
 import blueprints from '../fragments/blueprints';
 
 describe('Test injextCSS with core blueprints', () => {
-  const injectCSSFn = props =>
-    injectCSS(blueprints.core, { theme: defaultTheme, ...props });
+  const injectCSSFn = props => {
+    const theme = props.theme || defaultTheme;
+    return injectCSS(blueprints.core, { theme, ...props })
+  };
 
   it('should return correct CSS styles', () => {
     const injectedCSS = injectCSSFn({
@@ -109,6 +111,38 @@ describe('Test injextCSS with core blueprints', () => {
       [
         '@media (min-width: 992px) { > *:not(:last-child) { margin-right: 15px; } }',
         '> *:not(:last-child) { margin-right: 5px; }',
+      ].forEach(cssProp => {
+        expect(injectedCSS).toContain(cssProp);
+      });
+    });
+  });
+
+  describe('when using theme style syntax', () => {
+    it('should return correct colors for default theme', () => {
+      const injectedCSS = injectCSSFn({ color: 'red|blue' });
+
+      ['color: #d41111;'].forEach(cssProp => {
+        expect(injectedCSS).toContain(cssProp);
+      });
+    });
+
+    it('should return correct colors for other theme', () => {
+      const injectedCSS = injectCSSFn({
+        theme: Object.assign({}, defaultTheme, { default: false }),
+        color: 'red|blue'
+      });
+
+      ['color: #add8e6;'].forEach(cssProp => {
+        expect(injectedCSS).toContain(cssProp);
+      });
+    });
+
+    it('should ignore theme syntax when mixing with breakpoint syntax', () => {
+      const injectedCSS = injectCSSFn({ color: 'red|blue s:|green| t:|black|' });
+
+      [
+        'color: red|blue s:|green| t:|black|',
+        '@media (min-width: 768px) { color: #121212; }'
       ].forEach(cssProp => {
         expect(injectedCSS).toContain(cssProp);
       });
